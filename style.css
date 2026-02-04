@@ -1,0 +1,219 @@
+body {
+    background: #050505;
+    background-image: radial-gradient(circle at 2px 2px, rgba(0, 242, 255, 0.05) 1px, transparent 0);
+    background-size: 30px 30px;
+    color: white; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    padding: 20px; 
+    margin: 0;
+}
+
+.logo-stylehacks {
+    font-size: 32px; 
+    font-weight: 900; 
+    text-transform: uppercase; 
+    margin-top: 20px;
+    margin-bottom: 5px;
+    background: linear-gradient(90deg, #00f2ff, #cc00ff);
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+}
+
+.white-text { -webkit-text-fill-color: white; }
+
+.subtitle { 
+    color: #666; 
+    font-size: 10px; 
+    letter-spacing: 3px; 
+    margin-bottom: 40px; 
+    text-transform: uppercase;
+}
+
+/* Sección de Pagos */
+.payment-section { 
+    width: 100%; 
+    max-width: 400px; 
+    margin-bottom: 30px; 
+}
+
+#country-select { 
+    width: 100%; 
+    padding: 16px; 
+    background: #111; 
+    color: white; 
+    border: 1px solid #222; 
+    border-radius: 15px; 
+    font-weight: bold; 
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+}
+
+.method-card { 
+    background: #0a0a0a; 
+    padding: 18px; 
+    border-radius: 15px; 
+    margin-top: 12px; 
+    border-left: 4px solid #00f2ff; 
+    font-size: 14px; 
+    line-height: 1.6; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Cuadrícula de Productos */
+.store-grid { 
+    width: 100%; 
+    max-width: 400px; 
+}
+
+.card { 
+    background: #0f111a; 
+    padding: 30px; 
+    border-radius: 28px; 
+    margin-bottom: 25px; 
+    text-align: center; 
+    border: 1px solid #1a1a1a; 
+    transition: transform 0.3s ease;
+}
+
+.neon-blue { border-top: 6px solid #00f2ff; box-shadow: 0 15px 35px rgba(0, 242, 255, 0.05); }
+.neon-purple { border-top: 6px solid #cc00ff; box-shadow: 0 15px 35px rgba(204, 0, 255, 0.05); }
+
+.card-tag { 
+    font-size: 9px; 
+    background: #000; 
+    padding: 6px 14px; 
+    border-radius: 10px; 
+    color: #aaa; 
+    border: 1px solid #222; 
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sales-tag { 
+    color: #2ecc71; 
+    font-size: 11px; 
+    margin: 15px 0; 
+    font-weight: bold; 
+    background: rgba(46, 204, 113, 0.1);
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 5px;
+}
+
+.product-title { font-size: 26px; margin: 10px 0; font-weight: 800; letter-spacing: -1px; }
+
+.desc { 
+    font-size: 13px; 
+    color: #777; 
+    margin-bottom: 25px; 
+    line-height: 1.4;
+}
+
+.price-sel { 
+    width: 100%; 
+    padding: 14px; 
+    background: #000; 
+    color: white; 
+    border: 1px solid #222; 
+    border-radius: 12px; 
+    margin-bottom: 15px; 
+    font-weight: bold; 
+    text-align: center;
+}
+
+.btn-buy { 
+    width: 100%; 
+    padding: 18px; 
+    background: #2ecc71; 
+    color: black; 
+    border: none; 
+    border-radius: 18px; 
+    font-weight: 900; 
+    cursor: pointer; 
+    font-size: 16px; 
+    text-transform: uppercase;
+}
+
+/* Botones y Footer */
+.wa-btn { 
+    display: block; 
+    padding: 18px; 
+    background: #25D366; 
+    color: black; 
+    text-decoration: none; 
+    text-align: center; 
+    border-radius: 18px; 
+    font-weight: bold; 
+    font-size: 14px; 
+}
+
+.footer-respaldo { 
+    text-align: center; 
+    color: #333; 
+    font-size: 11px; 
+    margin-top: 50px; 
+    padding-bottom: 30px; 
+    line-height: 1.8;
+}
+
+/* Modal */
+.modal-bg { 
+    display: none; 
+    position: fixed; 
+    top: 0; left: 0; width: 100%; height: 100%; 
+    background: rgba(0,0,0,0.98); 
+    z-index: 9999; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+.modal-content { 
+    background: #080808; 
+    padding: 35px; 
+    border-radius: 30px; 
+    width: 85%; 
+    max-width: 350px; 
+    text-align: center; 
+    border: 1px solid #1a1a1a; 
+}
+
+.summary-box { 
+    background: #111; 
+    padding: 20px; 
+    border-radius: 15px; 
+    text-align: left; 
+    margin: 20px 0; 
+    border-left: 4px solid #00f2ff; 
+    font-size: 13px;
+    color: #eee;
+}
+
+.social-item { 
+    display: block; 
+    padding: 18px; 
+    margin: 10px 0; 
+    border-radius: 15px; 
+    text-decoration: none; 
+    color: white; 
+    font-weight: bold; 
+    font-size: 14px;
+}
+
+.tk { background: #000; border: 1px solid #333; }
+.ig { background: linear-gradient(45deg, #f09433, #e1306c, #833ab4); }
+
+.btn-cancel { 
+    background: none; 
+    border: none; 
+    color: #ff4444; 
+    font-weight: bold; 
+    cursor: pointer; 
+    margin-top: 20px; 
+    text-decoration: underline;
+    font-size: 12px;
+}
