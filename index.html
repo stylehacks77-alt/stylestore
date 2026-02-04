@@ -126,40 +126,51 @@
             </select>
             <button class="btn-buy" onclick="solicitar('BYPASS PC ID', 'p6')">COMPRAR</button>
         </article>
-                <div id="miModal" class="modal-confirm" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; padding: 20px;">
-        <div class="modal-content" style="background: #000; border: 2px solid #00f2ff; padding: 25px; border-radius: 20px; text-align: center; max-width: 350px; color: white; box-shadow: 0 0 20px #00f2ff;">
-            <h2 style="color: #00f2ff; margin-bottom: 5px;">✅ PEDIDO LISTO</h2>
-            <p id="infoPedido" style="font-weight: bold; font-size: 18px; color: #fff;"></p>
+                      <a href="https://chat.whatsapp.com/Di3u88DJjAg3vNQpFDmgkS" target="_blank" 
+       style="position: fixed; bottom: 20px; left: 20px; width: 60px; height: 60px; background: #25d366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; z-index: 1000; box-shadow: 0 4px 15px rgba(0,242,255,0.4); font-size: 30px; border: 2px solid #fff;">
+       <span style="position: absolute; top: -12px; background: #ff0055; color: white; font-size: 9px; padding: 2px 6px; border-radius: 5px; font-weight: bold; white-space: nowrap;">ACTUALIZACIONES</span>
+       📲
+                      </a>
+
+    <div id="miModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; justify-content: center; align-items: center; padding: 20px;">
+        <div style="background: #000; border: 2px solid #00f2ff; padding: 25px; border-radius: 20px; text-align: center; max-width: 350px; color: white; box-shadow: 0 0 25px #00f2ff;">
+            <h2 style="color: #00f2ff; margin-bottom: 5px; font-size: 22px;">✅ PEDIDO LISTO</h2>
+            <p id="infoPedido" style="font-weight: bold; font-size: 18px; color: #fff; margin-bottom: 10px;"></p>
             
-            <div style="margin: 15px 0; border-top: 1px solid #333; pt: 10px;">
-                <p style="font-size: 13px; color: #bbb; margin-bottom: 10px;">Síguenos en nuestras redes:</p>
-                <p style="font-size: 14px; margin: 5px 0;">📱 TikTok: <span style="color: #00f2ff;">@style.ventas</span></p>
-                <p style="font-size: 14px; margin: 5px 0;">📸 Instagram: <span style="color: #00f2ff;">@stylehacks7</span></p>
+            <div style="margin: 15px 0; border-top: 1px solid #333; padding-top: 10px; text-align: left; font-size: 14px;">
+                <p style="margin: 5px 0;">📱 TikTok: <span style="color: #00f2ff;">@style.ventas</span></p>
+                <p style="margin: 5px 0;">📸 Instagram: <span style="color: #00f2ff;">@stylehacks7</span></p>
             </div>
 
-            <button onclick="irAWhatsApp()" style="background: #25d366; color: white; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px;">💬 COMPRAR POR WHATSAPP</button>
+            <button onclick="irAWhatsApp()" style="background: #25d366; color: white; padding: 14px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; font-size: 16px; box-shadow: 0 0 10px #25d366;">💬 COMPRAR AL PRIVADO</button>
             
-            <a href="https://chat.whatsapp.com/Di3u88DJjAg3vNQpFDmgkS" target="_blank" style="text-decoration: none;">
-                <button style="background: #555; color: white; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px;">👥 UNIRSE AL GRUPO</button>
-            </a>
-            
-            <button onclick="cerrarModal()" style="background: transparent; color: #ff0055; border: 1px solid #ff0055; padding: 8px; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 10px;">CANCELAR</button>
+            <button onclick="cerrarModal()" style="background: transparent; color: #ff0055; border: 1px solid #ff0055; padding: 8px; border-radius: 10px; cursor: pointer; width: 100%; margin-top: 15px;">CANCELAR</button>
         </div>
     </div>
 
     <script>
     let pedidoActual = "";
+
     function solicitar(producto, idPrecio) {
-        let precio = document.getElementById(idPrecio).value;
-        pedidoActual = `Hola StyleHacks, quiero comprar ${producto} (${precio}). Ya tengo el dinero listo para pagar.`;
-        document.getElementById('infoPedido').innerText = producto;
-        document.getElementById('miModal').style.display = 'flex';
+        let precioElemento = document.getElementById(idPrecio);
+        if (precioElemento) {
+            let precioVal = precioElemento.value;
+            pedidoActual = `Hola StyleHacks, quiero comprar ${producto} (${precioVal}). Ya tengo el dinero listo.`;
+            document.getElementById('infoPedido').innerText = producto;
+            document.getElementById('miModal').style.display = 'flex';
+        }
     }
-    function cerrarModal() { document.getElementById('miModal').style.display = 'none'; }
+
+    function cerrarModal() {
+        document.getElementById('miModal').style.display = 'none';
+    }
+
     function irAWhatsApp() {
-        window.open(`https://wa.me/584243132113?text=${encodeURIComponent(pedidoActual)}`, '_blank');
+        const miNumero = "584243132113"; 
+        window.open(`https://wa.me/${miNumero}?text=${encodeURIComponent(pedidoActual)}`, '_blank');
         cerrarModal();
     }
     </script>
 </body>
 </html>
+
