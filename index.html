@@ -46,10 +46,26 @@
             <select id="p1" class="price-sel">
                 <option value="1 Día - $3.00">1 Día - $3.00</option>
                 <option value="7 Días - $7.00">7 Días - $7.00</option>
+                <option value="15 Días - $11.00">15 Días - $11.00</option>
                 <option value="30 Días - $16.00">30 Días - $16.00</option>
             </select>
+            
+                        </select
             <button class="btn-buy" onclick="solicitar('DRIP MOBILE', 'p1')">COMPRAR</button>
+        </article>        <article class="card neon-purple">
+            <span class="card-tag">PREMIUM / NUEVO</span>
+            <div class="sales-tag">🔥 LANZAMIENTO EXCLUSIVO</div>
+            <h2 class="product-title">STRICKS BR</h2>
+            <p class="desc">Máximo rendimiento y funciones exclusivas.</p>
+            <select id="p_stricks" class="price-sel">
+                <option value="1 Día - $3.00">1 Día - $3.00</option>
+                <option value="7 Días - $7.00">7 Días - $7.00</option>
+                <option value="15 Días - $11.00">15 Días - $11.00</option>
+                <option value="30 Días - $16.00">30 Días - $16.00</option>
+            </select>
+            <button class="btn-buy" onclick="solicitar('STRICKS BR', 'p_stricks')">COMPRAR</button>
         </article>
+        
 
         <article class="card neon-blue">
             <span class="card-tag">ANDROID</span>
@@ -110,29 +126,14 @@
             </select>
             <button class="btn-buy" onclick="solicitar('BYPASS PC ID', 'p6')">COMPRAR</button>
         </article>
-    </main>
-
-    <div style="width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
-        <a href="https://whatsapp.com/channel/0029VbBnYK9CHDydoBe7st2U" class="wa-btn" target="_blank">📲 CANAL DE ACTUALIZACIÓN</a>
+        <div style="width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 10px; margin-top: 20px; align-items: center; margin-left: auto; margin-right: auto;">
+        <a href="https://chat.whatsapp.com/Di3u88DJjAg3vNQpFDmgkS?mode=gi_t" class="wa-btn" target="_blank" style="text-decoration: none; background: #25d366; color: white; padding: 12px 25px; border-radius: 8px; font-weight: bold; display: inline-block;">📲 GRUPO DE WHATSAPP</a>
     </div>
 
-    <footer class="footer-respaldo">
+    <footer class="footer-respaldo" style="text-align: center; margin-top: 40px; color: #bbb; padding: 20px;">
         <p>TikTok: <b>@style.ventas</b> | Instagram: <b>@stylehacks7</b></p>
-        <p>© 2026 STYLEHACKS VIP - TODOS LOS DERECHOS RESERVADOS</p>
+        <p>© 2026 STYLEHACKS VIP</p>
     </footer>
-
-    <div id="modal-confirm" class="modal-bg">
-        <div class="modal-content">
-            <h3 style="color:#00f2ff; margin:0; text-transform: uppercase;">Pedido Generado</h3>
-            <div id="summary-text" class="summary-box"></div>
-            <p style="font-size: 11px; color: #888; margin-bottom: 15px;">Toma captura y envía el comprobante de pago a nuestras redes oficiales:</p>
-            
-            <a href="https://www.tiktok.com/@style.ventas" class="social-item tk" target="_blank">TIKTOK @style.ventas</a>
-            <a href="https://www.instagram.com/stylehacks7" class="social-item ig" target="_blank">INSTAGRAM @stylehacks7</a>
-            
-            <button class="btn-cancel" onclick="cerrarModal()">[ CERRAR VENTANA ]</button>
-        </div>
-    </div>
 
     <script src="script.js"></script>
 </body>
