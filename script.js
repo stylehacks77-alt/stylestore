@@ -90,7 +90,7 @@ function cerrarModal() {
 }
 
 function irAlGrupo() {
-    window.open('https://chat.whatsapp.com/KLuPMgqv96S9XOcbHwindC', '_blank');
+    window.open('https://chat.whatsapp.com/E5NwCYOZs5eIrHR0JSeBVH?mode=gi_t', '_blank');
     cerrarModal();
 }
 
