@@ -1,21 +1,13 @@
 let infoVenta = { producto: "", tiempo: "", pais: "" };
 
-function solicitar(prod, id, video) {
-    const tiempo = document.getElementById(id).value;
-    infoVenta.producto = prod;
-    infoVenta.tiempo = tiempo;
-    document.getElementById('infoPedido').innerHTML = `<b>PRODUCTO:</b> ${prod}<br><b>TIEMPO:</b> ${tiempo}`;
-    const btnVideo = document.getElementById('btnVideoModal');
-    btnVideo.onclick = function() { verVideoLocal(video); };
-    document.getElementById('miModal').style.display = 'flex';
-}
-
-function actualizarMetodoModal() {
-    const p = document.getElementById('modal-country-select').value;
-    infoVenta.pais = p;
-    const d = document.getElementById('method-display-modal');
+// Sincroniza el selector de arriba con el del modal y muestra datos
+function sincronizarPais(valor) {
+    infoVenta.pais = valor;
+    document.getElementById('main-country-select').value = valor;
+    document.getElementById('modal-country-select').value = valor;
+    
     let info = "";
-    switch(p) {
+    switch(valor) {
         case "Argentina": info = "CVU Uala: 0000007900203350273548"; break;
         case "Bolivia": info = "BNB: 2501332938 | Tigo Money: Consultar WhatsApp"; break;
         case "Brasil": info = "Pix: Consultar llave al WhatsApp."; break;
@@ -33,15 +25,30 @@ function actualizarMetodoModal() {
         case "Peru": info = "Yape o Plin N°: 954302258"; break;
         case "Global": info = "Zelle: +1 (754) 317-1482 | Zinli: jesusth234@gmail.com"; break;
         case "Venezuela": info = "Pago Móvil: BDV (0102) - 04128240604 - CI: 31.376.662"; break;
-        default: info = "Selecciona un país para ver los datos.";
+        default: info = "Selecciona un país para ver los datos bancarios.";
     }
-    d.innerText = info;
+    
+    document.getElementById('main-method-display').innerText = info;
+    document.getElementById('method-display-modal').innerText = info;
+}
+
+function solicitar(prod, id, video) {
+    const tiempo = document.getElementById(id).value;
+    infoVenta.producto = prod;
+    infoVenta.tiempo = tiempo;
+    
+    document.getElementById('infoPedido').innerHTML = `<b>PRODUCTO:</b> ${prod}<br><b>TIEMPO:</b> ${tiempo}`;
+    
+    const btnVideo = document.getElementById('btnVideoModal');
+    btnVideo.onclick = function() { verVideoLocal(video); };
+    
+    document.getElementById('miModal').style.display = 'flex';
 }
 
 function contactarSoportePagos() {
-    if(!infoVenta.pais) { alert("Selecciona tu país primero."); return; }
+    if(!infoVenta.pais) { alert("Por favor, selecciona primero tu país."); return; }
     const tel = "584242313212"; 
-    const msg = `Hola STYLEHACKS! 🚀 Ya realicé mi pago.%0A%0A📦 *Producto:* ${infoVenta.producto}%0A⏳ *Tiempo:* ${infoVenta.tiempo}%0A🌎 *País:* ${infoVenta.pais}%0A%0AAdjunto el comprobante.`;
+    const msg = `Hola STYLEHACKS! 🚀 Ya realicé mi pago.%0A%0A📦 *Producto:* ${infoVenta.producto}%0A⏳ *Tiempo:* ${infoVenta.tiempo}%0A🌎 *País:* ${infoVenta.pais}%0A%0AAdjunto el comprobante para recibir mi acceso VIP.`;
     window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
 }
 
