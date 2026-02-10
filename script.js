@@ -1,101 +1,86 @@
-// =============================================
-// 1. SISTEMA DE PAGOS ACTUALIZADO
-// =============================================
-function actualizarMetodo() {
-    const country = document.getElementById('country-select').value;
-    const methodText = document.getElementById('method-text');
-    
-    let texto = "";
+// Variable para capturar los datos de la compra actual
+let infoVenta = { producto: "", tiempo: "", pais: "" };
 
-    switch(country) {
-        case "ven": 
-            texto = "🇻🇪 VENEZUELA: Pago Móvil BDV (0102) - Telf: 04128240604 - CI: 31.376.662"; 
-            break;
-        case "col": 
-            texto = "🇨🇴 COLOMBIA: Nequi (3233438983) | Bancolombia: 76900007797 (Ahorros)"; 
-            break;
-        case "arg": 
-            texto = "🇦🇷 ARGENTINA: Uala CVU: 0000007900203350273548 | Alias: C.CORREA1315.UALA";
-            break;
-        case "bol": 
-            texto = "🇧🇴 BOLIVIA: Yape N°: 62656932 | También disponible QR";
-            break;
-        case "bra": 
-            texto = "🇧🇷 BRASIL: PIX Chave: 91991076791";
-            break;
-        case "chi": 
-            texto = "🇨🇱 CHILE: Banco Estado (Caja Vecina/Transf) - Xavier Fuenzalida - RUT: 23.710.151-0 - CuentaRUT: 23710151";
-            break;
-        case "ecu": 
-            texto = "🇪🇨 ECUADOR: Banco Pichincha N°: 2207195565 (Ahorros)";
-            break;
-        case "esp": 
-            texto = "🇪🇸 ESPAÑA: Bizum: 637 07 09 26 (Xiomari Moreno)";
-            break;
-        case "mex": 
-            texto = "🇲🇽 MÉXICO: Albo: 721180100042683432 | OXXO (Nu): 5101 2506 8691 9389";
-            break;
-        case "usa": 
-            texto = "🇺🇸 USA/GLOBAL: Zelle: +1 (754) 317-1482 | Zinli: jesusth234@gmail.com";
-            break;
-        case "per": 
-            texto = "🇵🇪 PERÚ: Yape o Plin N°: 954302258";
-            break;
-        case "par": 
-            texto = "🇵🇾 PARAGUAY: Banco Itau: 300406285 (Diego Armando Leiva Roa) | Billetera Personal: 0993363424";
-            break;
-        case "pan": 
-            texto = "🇵🇦 PANAMÁ: Punto Pago Wally: +584128975265 | Zinli: chauran2001@gmail.com";
-            break;
-        case "gua": 
-            texto = "🇬🇹 GUATEMALA: Banrural N°: 4431164091";
-            break;
-        case "hon": 
-            texto = "🇭🇳 HONDURAS: Bampais N°: 216400100524 (Ahorros)";
-            break;
-        case "dom": 
-            texto = "🇩🇴 R. DOMINICANA: Popular: 837147719 | BHD León: 34478720012 | Qik: 1002173707";
-            break;
-        default: 
-            texto = "Selecciona un país para ver los datos bancarios detallados.";
+// 1. Función principal al tocar "COMPRAR" (Mantiene tu sistema original)
+function solicitar(prod, id, video) {
+    const tiempo = document.getElementById(id).value;
+    infoVenta.producto = prod;
+    infoVenta.tiempo = tiempo;
+    
+    // Actualiza la info dentro del cuadro negro del modal
+    document.getElementById('infoPedido').innerHTML = `<b>PRODUCTO:</b> ${prod}<br><b>TIEMPO:</b> ${tiempo}`;
+    
+    // Configura el botón de video para que abra el archivo que le toca
+    const btnVideo = document.getElementById('btnVideoModal');
+    btnVideo.onclick = function() { verVideoLocal(video); };
+    
+    // Abre el menú de compra
+    document.getElementById('miModal').style.display = 'flex';
+}
+
+// 2. Lógica de los 17 Países (NUEVA FUNCIÓN)
+function actualizarMetodoModal() {
+    const p = document.getElementById('modal-country-select').value;
+    infoVenta.pais = p;
+    const d = document.getElementById('method-display-modal');
+    
+    let info = "";
+    switch(p) {
+        case "Argentina": info = "CVU Uala: 0000007900203350273548"; break;
+        case "Bolivia": info = "BNB: 2501332938 | Tigo Money: Consultar WhatsApp"; break;
+        case "Brasil": info = "Pix: Consultar llave al WhatsApp."; break;
+        case "Chile": info = "Banco Estado: XAVIER FUENZALIDA - CuentaRUT: 23710151"; break;
+        case "Colombia": info = "Bancolombia: 76900007797 | Nequi: 3016043120"; break;
+        case "Costa Rica": info = "Sinpe Móvil: Consultar al WhatsApp."; break;
+        case "Ecuador": info = "Banco Pichincha: 2206141381 (Ahorros)"; break;
+        case "El Salvador": info = "Banco Agrícola: Consultar al WhatsApp."; break;
+        case "España": info = "Bizum / Transferencia: Consultar al WhatsApp."; break;
+        case "Guatemala": info = "Banco Industrial: Consultar al WhatsApp."; break;
+        case "Honduras": info = "Banco Atlántida: Consultar al WhatsApp."; break;
+        case "Mexico": info = "Albo: 721180100042683432"; break;
+        case "Nicaragua": info = "Consultar datos de pago al WhatsApp."; break;
+        case "Panama": info = "Banco General (Yappy): Consultar WhatsApp."; break;
+        case "Peru": info = "Yape o Plin N°: 954302258"; break;
+        case "Global": info = "Zelle: +1 (754) 317-1482 | Zinli: jesusth234@gmail.com"; break;
+        case "Venezuela": info = "Pago Móvil: BDV (0102) - 04128240604 - CI: 31.376.662"; break;
+        default: info = "Selecciona un país para ver los datos.";
     }
-
-    methodText.innerText = texto;
+    d.innerText = info;
 }
 
-// =============================================
-// 2. SISTEMA DE COMPRA (MODAL)
-// =============================================
-function solicitar(producto, selectId) {
-    const select = document.getElementById(selectId);
-    const opcion = select.value;
-    const infoPedido = document.getElementById('infoPedido');
-    
-    infoPedido.innerHTML = `
-        <div style="border-left: 4px solid #00f2ff; padding-left: 10px;">
-            <p style="margin: 5px 0;"><strong>📦 PRODUCTO:</strong> ${producto}</p>
-            <p style="margin: 5px 0;"><strong>⏳ TIEMPO:</strong> ${opcion}</p>
-            <p style="margin: 5px 0; color: #00f2ff;"><strong>ESTADO:</strong> Esperando confirmación de pago...</p>
-        </div>
-    `;
-
-    document.getElementById('miModal').style.display = 'block';
+// 3. Función del Botón Azul (NUEVA FUNCIÓN - Tu número: 584242313212)
+function contactarSoportePagos() {
+    if(!infoVenta.pais) {
+        alert("Por favor, selecciona primero tu país.");
+        return;
+    }
+    const tel = "584242313212"; 
+    const msg = `Hola STYLEHACKS! 🚀 Ya realicé mi pago.%0A%0A📦 *Producto:* ${infoVenta.producto}%0A⏳ *Tiempo:* ${infoVenta.tiempo}%0A🌎 *País:* ${infoVenta.pais}%0A%0AAdjunto el comprobante para recibir mi acceso VIP.`;
+    window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
 }
 
-function cerrarModal() {
-    document.getElementById('miModal').style.display = 'none';
-}
-
-// =============================================
-// 3. ENLACE DE WHATSAPP ACTUALIZADO
-// =============================================
+// 4. Botón de Grupo (Mantiene el original)
 function irAlGrupo() {
-    // NUEVO LINK QUE ME PASASTE
     window.open('https://chat.whatsapp.com/E5NwCYOZs5eIrHR0JSeBVH', '_blank');
-    cerrarModal();
 }
 
-window.onclick = function(event) {
-    const modal = document.getElementById('miModal');
-    if (event.target == modal) cerrarModal();
+// 5. Funciones del Video (NUEVA FUNCIÓN)
+function verVideoLocal(archivo) {
+    const modal = document.getElementById('videoModal');
+    const video = document.getElementById('meuVideo');
+    video.src = archivo;
+    modal.style.display = 'flex';
+    video.play();
+}
+
+function cerrarVideoLocal() {
+    const modal = document.getElementById('videoModal');
+    const video = document.getElementById('meuVideo');
+    video.pause();
+    video.src = "";
+    modal.style.display = 'none';
+}
+
+function cerrarModal() { 
+    document.getElementById('miModal').style.display = 'none'; 
 }
