@@ -7,96 +7,23 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Diseño del Modal de Compra */
-        .modal-content { 
-            background:#000; 
-            border:2px solid #00f2ff; 
-            border-radius:20px; 
-            padding:20px; 
-            text-align:center; 
-            max-width:350px; 
-            width:90%; 
-            box-shadow: 0 0 25px rgba(0, 242, 255, 0.4); 
-            position: relative; 
-        }
-        
-        /* APARTADO DE INFORMACIÓN PROFESIONAL */
-        .info-box-pago { 
-            background: rgba(0, 242, 255, 0.08); 
-            padding: 12px; 
-            border-radius: 12px; 
-            margin-bottom: 15px; 
-            border: 1px dashed #00f2ff; 
-        }
-        .info-box-pago p { 
-            color: #fff; 
-            font-size: 0.85em; 
-            margin: 0; 
-            line-height: 1.4; 
-        }
-
-        /* Botón Azul de Gestión de Pagos (WhatsApp) */
-        .btn-pago-whatsapp { 
-            width:100%; 
-            background:#00f2ff; 
-            color:#000; 
-            padding:15px; 
-            border:none; 
-            border-radius:12px; 
-            font-weight:bold; 
-            cursor:pointer; 
-            margin-bottom:10px; 
-            display:flex; 
-            align-items:center; 
-            justify-content:center; 
-            gap:8px; 
-            font-size: 1em; 
-            box-shadow: 0 4px 15px rgba(0, 242, 255, 0.3); 
-            transition: 0.3s; 
-        }
-        .btn-pago-whatsapp:active { transform: scale(0.95); }
-
-        /* Estilos del Reproductor de Video */
-        #videoModal { 
-            display:none; 
-            position:fixed; 
-            z-index:10000; 
-            top:0; 
-            left:0; 
-            width:100%; 
-            height:100%; 
-            background:rgba(0,0,0,0.98); 
-            align-items:center; 
-            justify-content:center; 
-            flex-direction:column; 
-        }
+        /* Mantenemos tu diseño visual intacto */
+        .modal-content { background:#000; border:2px solid #00f2ff; border-radius:20px; padding:20px; text-align:center; max-width:350px; width:90%; box-shadow: 0 0 25px rgba(0, 242, 255, 0.4); position: relative; }
+        .info-box-pago { background: rgba(0, 242, 255, 0.08); padding: 12px; border-radius: 12px; margin-bottom: 15px; border: 1px dashed #00f2ff; color: #fff; font-size: 0.85em; }
+        .btn-pago-whatsapp { width:100%; background:#00f2ff; color:#000; padding:15px; border:none; border-radius:12px; font-weight:bold; cursor:pointer; margin-bottom:10px; display:flex; align-items:center; justify-content:center; gap:8px; font-size: 1em; }
+        #videoModal { display:none; position:fixed; z-index:10000; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.98); align-items:center; justify-content:center; flex-direction:column; }
         .video-box { width:85%; max-width:320px; }
-        video { 
-            width:100%; 
-            border:2px solid #00f2ff; 
-            border-radius:20px; 
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.5); 
-        }
-        .cerrar-v-btn { 
-            margin-top: 20px; 
-            color: #ff4d4d; 
-            background: none; 
-            border: 1px solid #ff4d4d; 
-            padding: 10px 25px; 
-            border-radius: 10px; 
-            cursor: pointer; 
-            font-weight: bold; 
-        }
+        video { width:100%; border:2px solid #00f2ff; border-radius:20px; }
     </style>
 </head>
 <body>
-    <header>
-        <h1 class="logo-stylehacks">STYLEHACKS <span class="white-text">VIP</span></h1>
-    </header>
+    <header><h1 class="logo-stylehacks">STYLEHACKS <span class="white-text">VIP</span></h1></header>
 
     <div id="productos-container">
         <article class="card neon-blue">
+            <div class="badge-android">ANDROID <span>🔥 +300 VENTAS</span></div>
             <h2 class="product-title">DRIP MOBILE</h2>
+            <p class="features">Aimkill, Speed, ESP, Teleport, Ghost Node.</p>
             <select id="p1" class="price-sel">
                 <option value="1 Día - $3.00">1 Día - $3.00</option>
                 <option value="7 Días - $7.00">7 Días - $7.00</option>
@@ -107,7 +34,9 @@
         </article>
 
         <article class="card neon-purple">
+            <div class="badge-premium">PREMIUM</div>
             <h2 class="product-title">STRICKS BR</h2>
+            <p class="features">Máximo rendimiento y funciones exclusivas.</p>
             <select id="p2" class="price-sel">
                 <option value="1 Día - $3.00">1 Día - $3.00</option>
                 <option value="30 Días - $16.00">30 Días - $16.00</option>
@@ -116,22 +45,33 @@
         </article>
 
         <article class="card neon-blue">
+            <div class="badge-android">ANDROID</div>
             <h2 class="product-title">HG CHEATS</h2>
+            <p class="features">Silent Aim, No Recoil, Wallhack. Optimizado.</p>
             <select id="p3" class="price-sel">
                 <option value="30 Días - $15.00">30 Días - $15.00</option>
             </select>
             <button class="btn-buy" onclick="solicitar('HG CHEATS', 'p3', 'hg.mp4')">COMPRAR</button>
+        </article>
+
+        <article class="card neon-purple">
+            <div class="badge-ios">IOS / ESPECIAL</div>
+            <h2 class="product-title">FLORITE IOS</h2>
+            <p class="features">Exclusivo para dispositivos Apple. Seguro y potente.</p>
+            <select id="p4" class="price-sel">
+                <option value="30 Días - $25.00">30 Días - $25.00</option>
+            </select>
+            <button class="btn-buy" onclick="solicitar('FLORITE IOS', 'p4', 'florite.mp4')">COMPRAR</button>
         </article>
     </div>
 
     <div id="miModal" class="modal" style="display:none; justify-content:center; align-items:center;">
         <div class="modal-content">
             <h3 style="color:#00f2ff; margin-bottom:10px;">🚀 ¡PEDIDO GENERADO!</h3>
-            
             <div id="infoPedido" style="color:#fff; margin-bottom:15px; text-align:left; background:#111; padding:12px; border-radius:10px; border-left:4px solid #00f2ff; font-size:0.9em;"></div>
             
             <div class="info-box-pago">
-                <p><b>📢 CENTRAL DE PAGOS:</b> Selecciona tu país y realiza la transferencia. Por favor, escriba al WhatsApp <b>únicamente</b> para enviar su comprobante y procesar su acceso.</p>
+                <p><b>📢 CENTRAL DE PAGOS:</b> Selecciona tu país y realiza la transferencia. Escribe al WhatsApp <b>únicamente</b> si vas a pagar.</p>
             </div>
 
             <select id="modal-country-select" onchange="actualizarMetodoModal()" class="price-sel" style="margin-bottom:10px; width:100%; padding:10px;">
@@ -157,25 +97,18 @@
 
             <div id="method-display-modal" style="color:#00f2ff; font-size:0.85em; margin-bottom:15px; font-weight:bold; min-height:40px; background: rgba(0,242,255,0.05); padding: 5px; border-radius: 5px;"></div>
 
-            <button onclick="contactarSoportePagos()" class="btn-pago-whatsapp">
-                <i class="fab fa-whatsapp"></i> NOTIFICAR PAGO AQUÍ
-            </button>
-
+            <button onclick="contactarSoportePagos()" class="btn-pago-whatsapp"><i class="fab fa-whatsapp"></i> ESCRIBIR PARA PAGAR</button>
             <button onclick="irAlGrupo()" style="width:100%; background:#25d366; color:#fff; padding:12px; border:none; border-radius:10px; font-weight:bold; cursor:pointer; margin-bottom:10px;">✅ UNIRSE AL GRUPO</button>
-            
-            <button id="btnVideoModal" style="width:100%; background:none; color:#00f2ff; border:1px solid #00f2ff; padding:10px; border-radius:10px; margin-bottom:10px; cursor:pointer; font-size: 0.9em;">
-                <i class="fas fa-play"></i> VER REFERENCIA EN VIDEO
-            </button>
-
+            <button id="btnVideoModal" style="width:100%; background:none; color:#00f2ff; border:1px solid #00f2ff; padding:10px; border-radius:10px; margin-bottom:10px; cursor:pointer; font-size: 0.9em;"><i class="fas fa-play"></i> VER REFERENCIA</button>
             <button onclick="cerrarModal()" style="background:none; border:none; color:#888; text-decoration:underline; cursor:pointer; font-size:0.8em;">Volver</button>
         </div>
     </div>
 
     <div id="videoModal">
         <div class="video-box"><video id="meuVideo" controls playsinline><source src="" type="video/mp4"></video></div>
-        <button onclick="cerrarVideoLocal()" class="cerrar-v-btn">CERRAR VIDEO</button>
+        <button onclick="cerrarVideoLocal()" style="margin-top:20px; color:#ff4d4d; background:none; border:1px solid #ff4d4d; padding:10px 25px; border-radius:10px; cursor:pointer; font-weight:bold;">CERRAR VIDEO</button>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
+
