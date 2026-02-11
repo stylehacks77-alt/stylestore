@@ -1,9 +1,16 @@
+// Variable global para almacenar los datos del pedido actual
 let pedido = { prod: "", t: "", pais: "" };
 
+/**
+ * Sincroniza la selección de país y muestra los datos bancarios correspondientes.
+ * Actualiza tanto el selector de la página principal como el del modal.
+ */
 function sincronizar(v) {
     pedido.pais = v;
     const mS = document.getElementById('main-country');
     const modS = document.getElementById('modal-country');
+    
+    // Sincronizar los selectores visualmente
     if (mS) mS.value = v;
     if (modS) modS.value = v;
     
@@ -20,6 +27,9 @@ function sincronizar(v) {
             break;
         case "Colombia": 
             info = "🇨🇴 NEQUI: 3233438983"; 
+            break;
+        case "Costa Rica": 
+            info = "🇨🇷 SINPE Móvil: 72805302"; 
             break;
         case "Ecuador": 
             info = "🇪🇨 Banco Pichincha: N° Cuenta 2207195565"; 
@@ -46,7 +56,7 @@ function sincronizar(v) {
             info = "🇵🇦 Consultar datos de transferencia al privado."; 
             break;
         case "Paraguay": 
-            info = "🇵🇾 Consultar datos locales al WhatsApp."; 
+            info = "🇵🇾 Itaú: 300406285 (Diego Leiva) | Billetera Personal: 0993363424"; 
             break;
         case "Peru": 
             info = "🇵🇪 Yape / Plin: 954302258"; 
@@ -63,12 +73,17 @@ function sincronizar(v) {
         default: 
             info = "Selecciona un país para ver los datos bancarios.";
     }
+
+    // Mostrar la información en los contenedores correspondientes
     const mainD = document.getElementById('main-data');
     const modalD = document.getElementById('modal-data');
     if (mainD) mainD.innerText = info;
     if (modalD) modalD.innerText = info;
 }
 
+/**
+ * Configura el modal con la información del producto seleccionado y lo muestra.
+ */
 function solicitar(prod, id, vid) {
     const selectorPrecio = document.getElementById(id);
     pedido.prod = prod;
@@ -79,41 +94,71 @@ function solicitar(prod, id, vid) {
         infoP.innerHTML = `📦 <b>PRODUCTO:</b> ${pedido.prod}<br>⏳ <b>TIEMPO:</b> ${pedido.t}`;
     }
     
+    // Configurar el botón de video dentro del modal
     const btnV = document.getElementById('btnVideo');
     if (btnV) {
         btnV.onclick = () => {
             const r = document.getElementById('reproductor');
             const vT = document.getElementById('vid');
-            if (r && vT) { vT.src = vid; r.style.display = 'flex'; vT.play(); }
+            if (r && vT) { 
+                vT.src = vid; 
+                r.style.display = 'flex'; 
+                vT.play(); 
+            }
         };
     }
-    document.getElementById('miModal').style.display = 'flex';
+    
+    // Mostrar el modal
+    const modal = document.getElementById('miModal');
+    if (modal) modal.style.display = 'flex';
 }
 
+/**
+ * Redirige al WhatsApp del administrador con el mensaje del pedido.
+ */
 function enviarWhatsApp() {
-    if (!pedido.pais) { alert("Por favor, selecciona primero tu país."); return; }
+    if (!pedido.pais || pedido.pais === "") { 
+        alert("Por favor, selecciona primero tu país."); 
+        return; 
+    }
     const tel = "584243132113";
     const msg = `Hola STYLEHACKS! 🚀 Ya realicé mi pago.%0A%0A📦 *Producto:* ${pedido.prod}%0A⏳ *Tiempo:* ${pedido.t}%0A🌎 *País:* ${pedido.pais}%0A%0AAdjunto el comprobante.`;
     window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
 }
 
-function irAlGrupo() {
-    window.open('https://chat.whatsapp.com/E5NwCYOZs5eIrHR0JSeBVH?mode=gi_t', '_blank');
+/**
+ * Abre el Canal de Referencias oficial.
+ */
+function irAlCanal() {
+    window.open('https://whatsapp.com/channel/0029VbBnYK9CHDydoBe7st2U', '_blank');
 }
 
+/**
+ * Cierra el modal de compra.
+ */
 function cerrarModal() {
-    document.getElementById('miModal').style.display = 'none';
+    const modal = document.getElementById('miModal');
+    if (modal) modal.style.display = 'none';
 }
 
+/**
+ * Cierra el reproductor de video y detiene la reproducción.
+ */
 function cerrarVid() { 
     const r = document.getElementById('reproductor'); 
     const v = document.getElementById('vid');
-    if (v) { v.pause(); v.src = ""; }
+    if (v) { 
+        v.pause(); 
+        v.src = ""; 
+    }
     if (r) r.style.display = 'none'; 
 }
 
+/**
+ * Permite cerrar el modal haciendo clic fuera del contenido principal.
+ */
 window.onclick = (e) => {
     const m = document.getElementById('miModal');
     if (e.target == m) cerrarModal();
 };
-                
+                    
