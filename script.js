@@ -105,7 +105,7 @@ function enviarWhatsApp() {
 }
 
 function irAlGrupo() {
-    window.open('https://chat.whatsapp.com/E5NwCYOZs5eIrHR0JSeBVH', '_blank');
+    window.open('https://whatsapp.com/channel/0029VbBnYK9CHDydoBe7st2U', '_blank');
 }
 
 function cerrarModal() {
