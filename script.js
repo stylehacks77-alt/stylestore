@@ -80,9 +80,9 @@ function solicitar(prod, id, vid) {
         btnVideo.onclick = () => {
             const r = document.getElementById('reproductor');
             const vTag = document.getElementById('vid');
-            if (r && vTag) {
-                vTag.src = vid;
-                r.style.display = 'flex';
+function irAlGrupo() {
+    window.open('https://chat.whatsapp.com/E5NwCYOZs5eIrHR0JSeBVH?mode=gi_t', '_blank');
+}
                 vTag.play();
             }
         };
