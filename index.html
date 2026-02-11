@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Estilos necesarios para las nuevas funciones */
         .modal { display:none; position:fixed; z-index:9999; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); align-items:center; justify-content:center; }
         .modal-content { background:#0b0b0b; border:2px solid #00f2ff; border-radius:25px; padding:25px; text-align:center; max-width:380px; width:90%; box-shadow: 0 0 30px rgba(0, 242, 255, 0.4); }
         .info-pago-vip { background: rgba(0, 242, 255, 0.05); border: 1px solid #00f2ff; border-radius: 15px; padding: 15px; margin: 15px 0; color: #fff; font-size: 0.85em; line-height: 1.5; }
@@ -19,6 +18,7 @@
 <body>
     <header>
         <h1 class="logo-stylehacks">STYLEHACKS <span class="white-text">VIP</span></h1>
+        <p style="text-align:center; color:#555; font-size:0.7em;">SISTEMA OFICIAL DE VENTAS Y DISTRIBUCIÓN</p>
     </header>
 
     <div class="top-selector">
@@ -32,25 +32,28 @@
             <option value="Colombia">🇨🇴 COLOMBIA</option>
             <option value="Costa Rica">🇨🇷 COSTA RICA</option>
             <option value="Ecuador">🇪🇨 ECUADOR</option>
-            <option value="El Salvador">🇸🇻 EL SALVADOR</option>
             <option value="España">🇪🇸 ESPAÑA</option>
             <option value="Guatemala">🇬🇹 GUATEMALA</option>
             <option value="Honduras">🇭🇳 HONDURAS</option>
             <option value="Mexico">🇲🇽 MÉXICO</option>
             <option value="Nicaragua">🇳🇮 NICARAGUA</option>
             <option value="Panama">🇵🇦 PANAMÁ</option>
+            <option value="Paraguay">🇵🇾 PARAGUAY</option>
             <option value="Peru">🇵🇪 PERÚ</option>
+            <option value="Puerto Rico">🇵🇷 PUERTO RICO</option>
+            <option value="Republica Dominicana">🇩🇴 REP. DOMINICANA</option>
+            <option value="Uruguay">🇺🇾 URUGUAY</option>
             <option value="Global">🇺🇸 USA / GLOBAL</option>
             <option value="Venezuela">🇻🇪 VENEZUELA</option>
         </select>
-        <div id="main-data" style="color:#fff; margin-top:15px; font-size:0.9em;">Selecciona un país para ver los datos de transferencia.</div>
+        <div id="main-data" style="color:#fff; margin-top:15px; font-size:0.9em; font-weight:bold;">Selecciona un país para ver los datos bancarios.</div>
     </div>
 
     <div id="productos-container">
         <article class="card neon-blue">
-            <div class="badge-android">ANDROID <span>🔥 +300 VENTAS</span></div>
+            <div class="badge-android">ANDROID</div>
             <h2 class="product-title">DRIP MOBILE</h2>
-            <p class="features">Aimkill, Speed, ESP, Teleport, Ghost Node.</p>
+            <p class="features">Aimkill, Speed, ESP, Teleport.</p>
             <select id="p1" class="price-sel">
                 <option value="1 Día - $3.00">1 Día - $3.00</option>
                 <option value="7 Días - $7.00">7 Días - $7.00</option>
@@ -63,9 +66,11 @@
         <article class="card neon-purple">
             <div class="badge-premium">PREMIUM</div>
             <h2 class="product-title">STRICKS BR</h2>
-            <p class="features">Máximo rendimiento y funciones exclusivas.</p>
+            <p class="features">Máximo rendimiento y estabilidad.</p>
             <select id="p2" class="price-sel">
                 <option value="1 Día - $3.00">1 Día - $3.00</option>
+                <option value="7 Días - $7.00">7 Días - $7.00</option>
+                <option value="15 Días - $11.00">15 Días - $11.00</option>
                 <option value="30 Días - $16.00">30 Días - $16.00</option>
             </select>
             <button class="btn-buy" onclick="solicitar('STRICKS BR', 'p2', 'stricks.mp4')">COMPRAR</button>
@@ -74,45 +79,57 @@
         <article class="card neon-blue">
             <div class="badge-android">ANDROID</div>
             <h2 class="product-title">HG CHEATS</h2>
-            <p class="features">Silent Aim, No Recoil, Wallhack. Optimizado.</p>
+            <p class="features">Silent Aim, No Recoil, Wallhack.</p>
             <select id="p3" class="price-sel">
-                <option value="30 Días - $15.00">30 Días - $15.00</option>
+                <option value="1 Día - $3.00">1 Día - $3.00</option>
+                <option value="10 Días - $8.00">10 Días - $8.00</option>
+                <option value="30 Días - $16.00">30 Días - $16.00</option>
             </select>
             <button class="btn-buy" onclick="solicitar('HG CHEATS', 'p3', 'hg.mp4')">COMPRAR</button>
         </article>
 
+        <article class="card neon-blue">
+            <div class="badge-premium">PC SYSTEM</div>
+            <h2 class="product-title">BYPASS PC</h2>
+            <p class="features">Protección antiban avanzada.</p>
+            <select id="p5" class="price-sel">
+                <option value="10 Días - $10.00">10 Días - $10.00</option>
+                <option value="30 Días - $20.00">30 Días - $20.00</option>
+            </select>
+            <button class="btn-buy" onclick="solicitar('BYPASS PC', 'p5', 'bypass.mp4')">COMPRAR</button>
+        </article>
+
         <article class="card neon-purple">
-            <div class="badge-ios">IOS / ESPECIAL</div>
+            <div class="badge-ios">IOS</div>
             <h2 class="product-title">FLORITE IOS</h2>
-            <p class="features">Exclusivo para dispositivos Apple. Seguro y potente.</p>
+            <p class="features">Seguridad 100% Sin Jailbreak.</p>
             <select id="p4" class="price-sel">
-                <option value="30 Días - $25.00">30 Días - $25.00</option>
+                <option value="30 Días - $30.00">30 Días - $30.00</option>
             </select>
             <button class="btn-buy" onclick="solicitar('FLORITE IOS', 'p4', 'florite.mp4')">COMPRAR</button>
         </article>
 
         <article class="card neon-blue">
-            <div class="badge-premium">SISTEMA</div>
-            <h2 class="product-title">BYPASS ID</h2>
-            <p class="features">Acceso total y bypass de seguridad avanzado.</p>
-            <select id="p5" class="price-sel">
+            <div class="badge-premium">PC PREMIUM</div>
+            <h2 class="product-title">CUBAN RAGE PC</h2>
+            <p class="features">Aimbot, ESP, Invisible PC.</p>
+            <select id="p6" class="price-sel">
+                <option value="10 Días - $11.00">10 Días - $11.00</option>
                 <option value="30 Días - $20.00">30 Días - $20.00</option>
+                <option value="Permanente - $55.00">Permanente - $55.00</option>
             </select>
-            <button class="btn-buy" onclick="solicitar('BYPASS ID', 'p5', 'bypass.mp4')">COMPRAR</button>
+            <button class="btn-buy" onclick="solicitar('CUBAN RAGE PC', 'p6', 'cuban.mp4')">COMPRAR</button>
         </article>
     </div>
 
-    <a href="https://chat.whatsapp.com/E5NwCYOZs5eIrHR0JSeBVH" class="wsp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://wa.me/584242313212" class="wsp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
     <div id="miModal" class="modal">
         <div class="modal-content">
-            <h3 style="color:#00f2ff; margin-bottom:15px;">🚀 ¡PEDIDO GENERADO!</h3>
-            <div id="infoPedido" style="color:#fff; text-align:left; background:#111; padding:15px; border-radius:15px; border-left:4px solid #00f2ff; font-size:0.9em; margin-bottom:15px;"></div>
+            <h3 style="color:#00f2ff;">🚀 PEDIDO GENERADO</h3>
+            <div id="infoPedido" style="color:#fff; text-align:left; background:#111; padding:15px; border-radius:15px; margin:15px 0; border-left:4px solid #00f2ff;"></div>
             
-            <div class="info-pago-vip">
-                <b>💳 GESTIÓN DE PAGO:</b><br>
-                Escriba al WhatsApp <u>únicamente</u> para enviar el comprobante o si ya va a realizar el pago ahora mismo.
-            </div>
+            <div class="info-pago-vip"><b>MÉTODO DE PAGO:</b> Selecciona tu país abajo para ver los datos.</div>
 
             <select id="modal-country" onchange="sincronizar(this.value)" class="price-sel" style="width:100%; margin-bottom:15px;">
                 <option value="">-- CONFIRMA TU PAÍS --</option>
@@ -123,33 +140,35 @@
                 <option value="Colombia">🇨🇴 COLOMBIA</option>
                 <option value="Costa Rica">🇨🇷 COSTA RICA</option>
                 <option value="Ecuador">🇪🇨 ECUADOR</option>
-                <option value="El Salvador">🇸🇻 EL SALVADOR</option>
                 <option value="España">🇪🇸 ESPAÑA</option>
                 <option value="Guatemala">🇬🇹 GUATEMALA</option>
                 <option value="Honduras">🇭🇳 HONDURAS</option>
                 <option value="Mexico">🇲🇽 MÉXICO</option>
                 <option value="Nicaragua">🇳🇮 NICARAGUA</option>
                 <option value="Panama">🇵🇦 PANAMÁ</option>
+                <option value="Paraguay">🇵🇾 PARAGUAY</option>
                 <option value="Peru">🇵🇪 PERÚ</option>
+                <option value="Puerto Rico">🇵🇷 PUERTO RICO</option>
+                <option value="Republica Dominicana">🇩🇴 REP. DOMINICANA</option>
+                <option value="Uruguay">🇺🇾 URUGUAY</option>
                 <option value="Global">🇺🇸 USA / GLOBAL</option>
                 <option value="Venezuela">🇻🇪 VENEZUELA</option>
             </select>
 
-            <div id="modal-data" style="color:#00f2ff; font-size:0.85em; margin-bottom:20px; font-weight:bold; background:rgba(0,242,255,0.05); padding:10px; border-radius:10px;"></div>
+            <div id="modal-data" style="color:#00f2ff; font-weight:bold; margin-bottom:20px;"></div>
 
-            <button onclick="enviarWhatsApp()" class="btn-pago-azul"><i class="fab fa-whatsapp"></i> NOTIFICAR PAGO AQUÍ</button>
-            <button onclick="irAlGrupo()" style="width:100%; background:#25d366; color:#fff; padding:12px; border:none; border-radius:12px; font-weight:bold; cursor:pointer; margin-bottom:10px;">UNIRSE AL GRUPO</button>
-            <button id="btnVideo" style="width:100%; background:none; color:#00f2ff; border:1px solid #00f2ff; padding:10px; border-radius:12px; margin-bottom:10px; cursor:pointer;">VER REFERENCIA</button>
-            <button onclick="cerrarModal()" style="background:none; border:none; color:#555; text-decoration:underline; cursor:pointer;">Volver</button>
+            <button onclick="enviarWhatsApp()" class="btn-pago-azul"><i class="fab fa-whatsapp"></i> NOTIFICAR PAGO</button>
+            <button onclick="irAlGrupo()" style="width:100%; background:#25d366; color:#fff; padding:12px; border:none; border-radius:12px; font-weight:bold; cursor:pointer; margin-bottom:10px;">GRUPO WHATSAPP</button>
+            <button id="btnVideo" style="width:100%; background:none; color:#00f2ff; border:1px solid #00f2ff; padding:10px; border-radius:12px; margin-bottom:10px;">VER REFERENCIA</button>
+            <button onclick="cerrarModal()" style="color:#555; background:none; border:none; text-decoration:underline;">Cerrar</button>
         </div>
     </div>
 
     <div id="reproductor" style="display:none; position:fixed; z-index:10001; top:0; left:0; width:100%; height:100%; background:#000; align-items:center; justify-content:center; flex-direction:column;">
         <video id="vid" controls style="width:90%; max-width:320px; border-radius:20px; border:2px solid #00f2ff;"></video>
-        <button onclick="cerrarVid()" style="margin-top:20px; color:#ff4d4d; border:1px solid #ff4d4d; background:none; padding:10px 30px; border-radius:10px; font-weight:bold;">CERRAR</button>
+        <button onclick="cerrarVid()" style="margin-top:20px; color:#ff4d4d; border:1px solid #ff4d4d; background:none; padding:10px 30px; border-radius:10px;">CERRAR</button>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
-
