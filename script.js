@@ -1,13 +1,13 @@
-// Sistema de Pedidos STYLEHACKS VIP
+// Sistema de Pedidos Inteligente STYLEHACKS
 let pedido = { prod: "", t: "", pais: "" };
 
 /**
- * Sincroniza selectores y muestra datos bancarios de los 17 países.
- * He dejado los datos de las imágenes listos para que los confirmes.
+ * Sincroniza los selectores y muestra la base de datos bancaria de los 17 países.
  */
 function sincronizar(v) {
     pedido.pais = v;
     
+    // Sincronizar selectores (Main y Modal)
     const mainSel = document.getElementById('main-country');
     const modalSel = document.getElementById('modal-country');
     if (mainSel) mainSel.value = v;
@@ -15,39 +15,47 @@ function sincronizar(v) {
     
     let info = "";
     
+    // BASE DE DATOS BANCARIA ACTUALIZADA
     switch(v) {
-        // DATOS FIJOS (VENEZUELA Y COLOMBIA)
-        case "Venezuela": 
-            info = "BDV: 0102-0412-82-40604 | CI: 31.376.662 | Pago Móvil"; 
-            break;
+        case "Argentina": 
+            info = "Uala: CVU 0000007900203350273548 | Alias: C.CORREA1315.UALA"; break;
+        case "Bolivia": 
+            info = "Yape: N° Cuenta 52656932 | QR Disponible en Chat"; break;
+        case "Brasil": 
+            info = "PIX: Chave 91991076791"; break;
         case "Colombia": 
-            info = "NEQUI: 3233438983"; 
-            break;
-        case "Global": 
-            info = "Zelle: +1 (754) 317-1482 | Zinli: jesusth234@gmail.com"; 
-            break;
-
-        // DATOS DE LAS IMÁGENES (14 PAÍSES)
-        // Nota: Si algún dato varía de tu imagen, cámbialo dentro de las comillas.
-        case "Argentina": info = "CVU Uala: 0000007900203350273548"; break;
-        case "Bolivia": info = "BNB: 2501332938 | Tigo Money: Consultar WhatsApp"; break;
-        case "Brasil": info = "Pix: Consultar llave al WhatsApp."; break;
-        case "Chile": info = "Banco Estado: CuentaRUT 23710151 (X. Fuenzalida)"; break;
-        case "Ecuador": info = "Banco Pichincha: 2206141381 (Ahorros)"; break;
-        case "Guatemala": info = "Consultar datos de depósito al WhatsApp."; break;
-        case "Honduras": info = "Consultar datos de depósito al WhatsApp."; break;
-        case "Mexico": info = "Albo: 721180100042683432"; break;
-        case "Nicaragua": info = "Consultar datos locales al WhatsApp."; break;
-        case "Panama": info = "Consultar datos de transferencia al WhatsApp."; break;
-        case "Paraguay": info = "Consultar datos locales al WhatsApp."; break;
-        case "Peru": info = "Yape o Plin: 954302258"; break;
-        case "Republica Dominicana": info = "Consultar datos de depósito al WhatsApp."; break;
-        case "Uruguay": info = "Consultar datos locales al WhatsApp."; break;
-        
+            info = "NEQUI: 3233438983"; break;
+        case "Ecuador": 
+            info = "Banco Pichincha: N° Cuenta 2207195565"; break;
+        case "España": 
+            info = "Bizum: 637 07 09 26 (Xiomari Moreno)"; break;
+        case "USA": 
+            info = "Zelle: +1 (754) 317-1482 (Tickets DAVID)"; break;
+        case "Guatemala": 
+            info = "Banrural: N° Cuenta 4431164091"; break;
+        case "Honduras": 
+            info = "Bampais: N° Cuenta 216400100524"; break;
+        case "Mexico": 
+            info = "Albo: 721180100042683432 | Nu (OXXO): 5101 2506 8691 9389"; break;
+        case "Nicaragua": 
+            info = "BAC: 371674409 | IBAN: NI37BAMC0000000000371674409"; break;
+        case "Panama": 
+            info = "Consultar datos de transferencia al WhatsApp."; break;
+        case "Paraguay": 
+            info = "Consultar datos locales al WhatsApp."; break;
+        case "Peru": 
+            info = "Yape / Plin: 954302258"; break;
+        case "Republica Dominicana": 
+            info = "Popular: 837147719 | BHD: 34478720012 | Qik: 1002173707"; break;
+        case "Uruguay": 
+            info = "Consultar datos locales al WhatsApp."; break;
+        case "Venezuela": 
+            info = "Banesco (0102) | 31.376.662 | 0412-8240604 | Pago Móvil"; break;
         default: 
             info = "Selecciona un país para ver los datos bancarios.";
     }
     
+    // Mostrar información en pantalla
     const mainData = document.getElementById('main-data');
     const modalData = document.getElementById('modal-data');
     if (mainData) mainData.innerText = info;
@@ -55,18 +63,16 @@ function sincronizar(v) {
 }
 
 /**
- * Abre el modal y captura el producto y precio seleccionado.
+ * Abre el modal y captura los detalles del pedido.
  */
 function solicitar(prod, id, vid) {
     const selectorPrecio = document.getElementById(id);
-    const tiempo = selectorPrecio ? selectorPrecio.value : "No especificado";
-    
     pedido.prod = prod;
-    pedido.t = tiempo;
+    pedido.t = selectorPrecio ? selectorPrecio.value : "No especificado";
     
     const infoPedido = document.getElementById('infoPedido');
     if (infoPedido) {
-        infoPedido.innerHTML = `📦 <b>PRODUCTO:</b> ${prod}<br>⏳ <b>TIEMPO:</b> ${tiempo}`;
+        infoPedido.innerHTML = `📦 <b>PRODUCTO:</b> ${pedido.prod}<br>⏳ <b>TIEMPO:</b> ${pedido.t}`;
     }
     
     const btnVideo = document.getElementById('btnVideo');
@@ -86,21 +92,18 @@ function solicitar(prod, id, vid) {
 }
 
 /**
- * Envía el mensaje de compra al WhatsApp oficial.
+ * Envía el mensaje de compra al número actualizado: +58 424 313 2113
  */
 function enviarWhatsApp() {
     if (!pedido.pais) {
         alert("Por favor, selecciona primero tu país.");
         return;
     }
-    const tel = "584242313212";
+    const tel = "584243132113";
     const msg = `Hola STYLEHACKS! 🚀 Ya realicé mi pago.%0A%0A📦 *Producto:* ${pedido.prod}%0A⏳ *Tiempo:* ${pedido.t}%0A🌎 *País:* ${pedido.pais}%0A%0AAdjunto el comprobante para activación.`;
     window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
 }
 
-/**
- * Utilidades de navegación y cierre.
- */
 function irAlGrupo() {
     window.open('https://chat.whatsapp.com/E5NwCYOZs5eIrHR0JSeBVH', '_blank');
 }
@@ -120,6 +123,6 @@ function cerrarVid() {
 }
 
 window.onclick = function(event) {
-    const m = document.getElementById('miModal');
-    if (event.target == m) { cerrarModal(); }
-}
+    const modal = document.getElementById('miModal');
+    if (event.target == modal) { cerrarModal(); }
+            }
