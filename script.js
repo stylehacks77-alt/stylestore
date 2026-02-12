@@ -25,6 +25,9 @@ function sincronizar(v) {
         case "Brasil": 
             info = "🇧🇷 PIX: Chave 91991076791"; 
             break;
+        case "Chile": 
+            info = "🇨🇱 Banco Estado (CuentaRUT): 23710151 | Titular: XAVIER FUENZALIDA | RUT: 23.710.151-0 | (Depósito o Transferencia)"; 
+            break; 
         case "Colombia": 
             info = "🇨🇴 NEQUI: 3233438983"; 
             break;
