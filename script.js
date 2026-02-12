@@ -71,7 +71,7 @@ function sincronizar(v) {
             info = "🇺🇾 Consultar datos locales al WhatsApp."; 
             break;
         case "Venezuela": 
-            info = "🇻🇪 Venezuela (0102) | 31.376.662 | 0412-8240604 | Pago Móvil"; 
+            info = "🇻🇪 Banesco (0102) | 31.376.662 | 0412-8240604 | Pago Móvil"; 
             break;
         default: 
             info = "Selecciona un país para ver los datos bancarios.";
@@ -164,4 +164,3 @@ window.onclick = (e) => {
     const m = document.getElementById('miModal');
     if (e.target == m) cerrarModal();
 };
-                    
