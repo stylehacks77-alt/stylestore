@@ -104,7 +104,7 @@ function sincronizar(v) {
             info = "🇺🇾 Consultar datos locales al WhatsApp."; 
             break;
         case "Venezuela": 
-            info = "🇻🇪 Banesco (0102) | 31.376.662 | 0412-8240604 | Pago Móvil"; 
+            info = "🇻🇪 Venezuela (0102) | 31.376.662 | 0412-8240604 | Pago Móvil"; 
             break;
         default: 
             info = "Selecciona un país para ver los datos bancarios.";
