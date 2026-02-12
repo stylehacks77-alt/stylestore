@@ -2,6 +2,39 @@
 let pedido = { prod: "", t: "", pais: "" };
 
 /**
+ * NUEVA FUNCIÓN: Copia los datos bancarios al portapapeles del usuario.
+ * Esta función busca el texto dentro del contenedor 'modal-data'.
+ */
+function copiarDatos() {
+    const texto = document.getElementById('modal-data').innerText;
+    
+    if (!pedido.pais || pedido.pais === "" || texto.includes("Selecciona")) {
+        alert("⚠️ Por favor, selecciona un país primero.");
+        return;
+    }
+
+    navigator.clipboard.writeText(texto).then(() => {
+        // Feedback visual en el botón de copiar
+        const btnCopy = document.getElementById('btnCopiar');
+        if (btnCopy) {
+            const originalText = btnCopy.innerHTML;
+            btnCopy.innerHTML = "<i class='fas fa-check'></i> ¡DATOS COPIADOS!";
+            btnCopy.style.background = "#ffffff";
+            btnCopy.style.color = "#000000";
+            
+            setTimeout(() => {
+                btnCopy.innerHTML = originalText;
+                btnCopy.style.background = "rgba(0, 242, 255, 0.1)";
+                btnCopy.style.color = "#00f2ff";
+            }, 2000);
+        }
+    }).catch(err => {
+        console.error('Error al intentar copiar: ', err);
+        alert("No se pudo copiar automáticamente. Por favor, selecciona el texto manualmente.");
+    });
+}
+
+/**
  * Sincroniza la selección de país y muestra los datos bancarios correspondientes.
  * Actualiza tanto el selector de la página principal como el del modal.
  */
@@ -10,7 +43,7 @@ function sincronizar(v) {
     const mS = document.getElementById('main-country');
     const modS = document.getElementById('modal-country');
     
-    // Sincronizar los selectores visualmente
+    // Sincronizar los selectores visualmente para que marquen lo mismo
     if (mS) mS.value = v;
     if (modS) modS.value = v;
     
@@ -111,13 +144,13 @@ function solicitar(prod, id, vid) {
         };
     }
     
-    // Mostrar el modal
+    // Mostrar el modal con efecto visual
     const modal = document.getElementById('miModal');
     if (modal) modal.style.display = 'flex';
 }
 
 /**
- * Redirige al WhatsApp del administrador con el mensaje del pedido.
+ * Redirige al WhatsApp del administrador con el mensaje del pedido formateado.
  */
 function enviarWhatsApp() {
     if (!pedido.pais || pedido.pais === "") { 
@@ -125,12 +158,12 @@ function enviarWhatsApp() {
         return; 
     }
     const tel = "584243132113";
-    const msg = `Hola STYLEHACKS! 🚀 Ya realicé mi pago.%0A%0A📦 *Producto:* ${pedido.prod}%0A⏳ *Tiempo:* ${pedido.t}%0A🌎 *País:* ${pedido.pais}%0A%0AAdjunto el comprobante.`;
+    const msg = `Hola STYLEHACKS! 🚀 Ya realicé mi pago.%0A%0A📦 *Producto:* ${pedido.prod}%0A⏳ *Tiempo:* ${pedido.t}%0A🌎 *País:* ${pedido.pais}%0A%0AAdjunto el comprobante de transferencia.`;
     window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
 }
 
 /**
- * Abre el Canal de Referencias oficial.
+ * Abre el Canal de Referencias oficial en una nueva pestaña.
  */
 function irAlCanal() {
     window.open('https://whatsapp.com/channel/0029VbBnYK9CHDydoBe7st2U', '_blank');
@@ -145,7 +178,7 @@ function cerrarModal() {
 }
 
 /**
- * Cierra el reproductor de video y detiene la reproducción.
+ * Cierra el reproductor de video y detiene la reproducción para ahorrar recursos.
  */
 function cerrarVid() { 
     const r = document.getElementById('reproductor'); 
@@ -158,9 +191,10 @@ function cerrarVid() {
 }
 
 /**
- * Permite cerrar el modal haciendo clic fuera del contenido principal.
+ * Permite cerrar el modal haciendo clic en cualquier parte oscura (fuera del contenido).
  */
 window.onclick = (e) => {
     const m = document.getElementById('miModal');
     if (e.target == m) cerrarModal();
 };
+                
