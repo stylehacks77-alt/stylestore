@@ -1,9 +1,11 @@
 // Variable global para almacenar los datos del pedido actual
 let pedido = { prod: "", t: "", pais: "" };
 
+// ENLACE DEL GRUPO ACTUALIZADO
+const LINK_GRUPO = "https://chat.whatsapp.com/C7392AzYXLDGGqds6LZBDv";
+
 /**
  * NUEVA FUNCIÓN: Copia los datos bancarios al portapapeles del usuario.
- * Esta función busca el texto dentro del contenedor 'modal-data'.
  */
 function copiarDatos() {
     const texto = document.getElementById('modal-data').innerText;
@@ -36,14 +38,12 @@ function copiarDatos() {
 
 /**
  * Sincroniza la selección de país y muestra los datos bancarios correspondientes.
- * Actualiza tanto el selector de la página principal como el del modal.
  */
 function sincronizar(v) {
     pedido.pais = v;
     const mS = document.getElementById('main-country');
     const modS = document.getElementById('modal-country');
     
-    // Sincronizar los selectores visualmente para que marquen lo mismo
     if (mS) mS.value = v;
     if (modS) modS.value = v;
     
@@ -59,7 +59,7 @@ function sincronizar(v) {
             info = "🇧🇷 PIX: Chave 91991076791"; 
             break;
         case "Chile": 
-            info = "🇨🇱 Banco Estado (CuentaRUT): 23710151 | Titular: XAVIER FUENZALIDA | RUT: 23.710.151-0 | (Depósito o Transferencia)"; 
+            info = "🇨🇱 Banco Estado (CuentaRUT): 23710151 | Titular: XAVIER FUENZALIDA | RUT: 23.710.151-0"; 
             break; 
         case "Colombia": 
             info = "🇨🇴 NEQUI: 3233438983"; 
@@ -110,7 +110,6 @@ function sincronizar(v) {
             info = "Selecciona un país para ver los datos bancarios.";
     }
 
-    // Mostrar la información en los contenedores correspondientes
     const mainD = document.getElementById('main-data');
     const modalD = document.getElementById('modal-data');
     if (mainD) mainD.innerText = info;
@@ -118,7 +117,7 @@ function sincronizar(v) {
 }
 
 /**
- * Configura el modal con la información del producto seleccionado y lo muestra.
+ * Configura el modal con la información del producto.
  */
 function solicitar(prod, id, vid) {
     const selectorPrecio = document.getElementById(id);
@@ -130,7 +129,6 @@ function solicitar(prod, id, vid) {
         infoP.innerHTML = `📦 <b>PRODUCTO:</b> ${pedido.prod}<br>⏳ <b>TIEMPO:</b> ${pedido.t}`;
     }
     
-    // Configurar el botón de video dentro del modal
     const btnV = document.getElementById('btnVideo');
     if (btnV) {
         btnV.onclick = () => {
@@ -144,33 +142,32 @@ function solicitar(prod, id, vid) {
         };
     }
     
-    // Mostrar el modal con efecto visual
     const modal = document.getElementById('miModal');
     if (modal) modal.style.display = 'flex';
 }
 
 /**
- * Redirige al WhatsApp del administrador con el mensaje del pedido formateado.
+ * WhatsApp del administrador.
  */
 function enviarWhatsApp() {
     if (!pedido.pais || pedido.pais === "") { 
         alert("Por favor, selecciona primero tu país."); 
         return; 
     }
-    const tel = "584243132113";
+    const tel = "584242313213";
     const msg = `Hola STYLEHACKS! 🚀 Ya realicé mi pago.%0A%0A📦 *Producto:* ${pedido.prod}%0A⏳ *Tiempo:* ${pedido.t}%0A🌎 *País:* ${pedido.pais}%0A%0AAdjunto el comprobante de transferencia.`;
     window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
 }
 
 /**
- * Abre el Canal de Referencias oficial en una nueva pestaña.
+ * Función para unirse al grupo (Link Actualizado).
  */
 function irAlCanal() {
-    window.open('https://whatsapp.com/channel/0029VbBnYK9CHDydoBe7st2U', '_blank');
+    window.open(LINK_GRUPO, '_blank');
 }
 
 /**
- * Cierra el modal de compra.
+ * Cierra el modal.
  */
 function cerrarModal() {
     const modal = document.getElementById('miModal');
@@ -178,23 +175,17 @@ function cerrarModal() {
 }
 
 /**
- * Cierra el reproductor de video y detiene la reproducción para ahorrar recursos.
+ * Cierra el reproductor de video.
  */
 function cerrarVid() { 
     const r = document.getElementById('reproductor'); 
     const v = document.getElementById('vid');
-    if (v) { 
-        v.pause(); 
-        v.src = ""; 
-    }
+    if (v) { v.pause(); v.src = ""; }
     if (r) r.style.display = 'none'; 
 }
 
-/**
- * Permite cerrar el modal haciendo clic en cualquier parte oscura (fuera del contenido).
- */
+// Cerrar al hacer clic fuera
 window.onclick = (e) => {
     const m = document.getElementById('miModal');
     if (e.target == m) cerrarModal();
 };
-                
