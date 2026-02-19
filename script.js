@@ -154,7 +154,7 @@ function enviarWhatsApp() {
         alert("Por favor, selecciona primero tu país."); 
         return; 
     }
-    const tel = "584242313213";
+    const tel = "5804243132113";
     const msg = `Hola STYLEHACKS! 🚀 Ya realicé mi pago.%0A%0A📦 *Producto:* ${pedido.prod}%0A⏳ *Tiempo:* ${pedido.t}%0A🌎 *País:* ${pedido.pais}%0A%0AAdjunto el comprobante de transferencia.`;
     window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
 }
