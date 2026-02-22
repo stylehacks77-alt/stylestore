@@ -2,7 +2,7 @@
 let pedido = { prod: "", t: "", pais: "" };
 
 // ENLACE DEL GRUPO ACTUALIZADO
-const LINK_GRUPO = "https://chat.whatsapp.com/C7392AzYXLDGGqds6LZBDv";
+const LINK_GRUPO = "https://chat.whatsapp.com/GRtlmbUd45PKdGWJweJGYq?mode=gi_t";
 
 /**
  * NUEVA FUNCIÓN: Copia los datos bancarios al portapapeles del usuario.
@@ -121,6 +121,13 @@ function sincronizar(v) {
  */
 function solicitar(prod, id, vid) {
     const selectorPrecio = document.getElementById(id);
+    
+    // Validación: Si el selector está deshabilitado, no procesar la compra
+    if (selectorPrecio && selectorPrecio.disabled) {
+        alert("Lo sentimos, este producto no está disponible en este momento.");
+        return;
+    }
+
     pedido.prod = prod;
     pedido.t = selectorPrecio ? selectorPrecio.value : "";
     
@@ -154,13 +161,13 @@ function enviarWhatsApp() {
         alert("Por favor, selecciona primero tu país."); 
         return; 
     }
-    const tel = "5804243132113";
+    const tel = "584243132113";
     const msg = `Hola STYLEHACKS! 🚀 Ya realicé mi pago.%0A%0A📦 *Producto:* ${pedido.prod}%0A⏳ *Tiempo:* ${pedido.t}%0A🌎 *País:* ${pedido.pais}%0A%0AAdjunto el comprobante de transferencia.`;
     window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
 }
 
 /**
- * Función para unirse al grupo (Link Actualizado).
+ * Función para unirse al grupo.
  */
 function irAlCanal() {
     window.open(LINK_GRUPO, '_blank');
