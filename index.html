@@ -15,7 +15,11 @@
         .wsp-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-decoration: none; }
         .top-selector { background: #000; border: 1px solid #1a1a1a; padding: 20px; border-radius: 20px; margin: 15px; text-align: center; }
         
-        /* Estilo para el nuevo botón de copiar */
+        /* Estilos para productos no disponibles */
+        .card-disabled { opacity: 0.6; filter: grayscale(0.8); pointer-events: none; }
+        .btn-disabled { background: #333 !important; color: #777 !important; border: 1px solid #444 !important; cursor: not-allowed !important; box-shadow: none !important; }
+        .badge-disabled { background: #555 !important; color: #aaa !important; }
+
         #btnCopiar { transition: all 0.3s ease; }
         #btnCopiar:active { transform: scale(0.95); }
     </style>
@@ -53,17 +57,14 @@
     </div>
 
     <div id="productos-container">
-        <article class="card neon-blue">
-            <div class="badge-android">ANDROID</div>
+        <article class="card neon-blue card-disabled">
+            <div class="badge-android badge-disabled">NO DISPONIBLE</div>
             <h2 class="product-title">DRIP MOBILE</h2>
             <p class="features">Aimkill, Speed, ESP, Teleport, Ghost Node.</p>
-            <select id="p1" class="price-sel">
-                <option value="1 Día - $3.00">1 Día - $3.00</option>
-                <option value="7 Días - $7.50">7 Días - $7.50</option>
-                <option value="15 Días - $11.50">15 Días - $11.50</option>
-                <option value="30 Días - $17.00">30 Días - $17.00</option>
+            <select id="p1" class="price-sel" disabled>
+                <option value="">No disponible actualmente</option>
             </select>
-            <button class="btn-buy" onclick="solicitar('DRIP MOBILE', 'p1', 'drip.mp4')">COMPRAR</button>
+            <button class="btn-buy btn-disabled">NO DISPONIBLE</button>
         </article>
 
         <article class="card neon-purple">
