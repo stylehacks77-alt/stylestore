@@ -1,8 +1,8 @@
 // Variable global para almacenar los datos del pedido actual
 let pedido = { prod: "", t: "", pais: "" };
 
-// ENLACE DEL GRUPO ACTUALIZADO
-const LINK_GRUPO = "https://chat.whatsapp.com/GRtlmbUd45PKdGWJweJGYq?mode=gi_t";
+// ENLACE DEL GRUPO ACTUALIZADO (Sincronizado con el HTML)
+const LINK_GRUPO = "https://chat.whatsapp.com/J7xpI4kOC951AlWOLJvWp0?mode=gi_t";
 
 /**
  * NUEVA FUNCIÓN: Copia los datos bancarios al portapapeles del usuario.
@@ -122,14 +122,14 @@ function sincronizar(v) {
 function solicitar(prod, id, vid) {
     const selectorPrecio = document.getElementById(id);
     
-    // Validación: Si el selector está deshabilitado, no procesar la compra
-    if (selectorPrecio && selectorPrecio.disabled) {
+    // Validación: Si el selector está deshabilitado o no existe, detener.
+    if (!selectorPrecio || selectorPrecio.disabled) {
         alert("Lo sentimos, este producto no está disponible en este momento.");
         return;
     }
 
     pedido.prod = prod;
-    pedido.t = selectorPrecio ? selectorPrecio.value : "";
+    pedido.t = selectorPrecio.value;
     
     const infoP = document.getElementById('infoPedido');
     if (infoP) {
@@ -196,3 +196,4 @@ window.onclick = (e) => {
     const m = document.getElementById('miModal');
     if (e.target == m) cerrarModal();
 };
+    
