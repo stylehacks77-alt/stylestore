@@ -1,5 +1,6 @@
 // Variable global para almacenar los datos del pedido actual
-let pedido = { prod: "", t: "", pais: "" };
+// Se añade "metodo" para rastrear la opción elegida
+let pedido = { prod: "", t: "", pais: "", metodo: "" };
 
 // ENLACE DEL GRUPO ACTUALIZADO (Sincronizado con el HTML)
 const LINK_GRUPO = "https://chat.whatsapp.com/J7xpI4kOC951AlWOLJvWp0?mode=gi_t";
@@ -117,12 +118,31 @@ function sincronizar(v) {
 }
 
 /**
- * Configura el modal con la información del producto.
+ * Función para el apartado de DESCUENTO.
+ * Captura el producto, el tiempo y el método de pago seleccionado.
+ */
+function solicitarPromo(prod, idPrecio, idMetodo, vid) {
+    const selectorPrecio = document.getElementById(idPrecio);
+    const selectorMetodo = document.getElementById(idMetodo);
+    
+    pedido.prod = prod;
+    pedido.t = selectorPrecio.value;
+    pedido.metodo = selectorMetodo.value; // Guardamos el método específico
+    
+    const infoP = document.getElementById('infoPedido');
+    if (infoP) {
+        infoP.innerHTML = `📦 <b>PRODUCTO:</b> ${pedido.prod}<br>⏳ <b>TIEMPO:</b> ${pedido.t}<br>💳 <b>MÉTODO:</b> ${pedido.metodo}`;
+    }
+    
+    abrirInterfazPedido(vid);
+}
+
+/**
+ * Función estándar para precios normales.
  */
 function solicitar(prod, id, vid) {
     const selectorPrecio = document.getElementById(id);
     
-    // Validación: Si el selector está deshabilitado o no existe, detener.
     if (!selectorPrecio || selectorPrecio.disabled) {
         alert("Lo sentimos, este producto no está disponible en este momento.");
         return;
@@ -130,12 +150,20 @@ function solicitar(prod, id, vid) {
 
     pedido.prod = prod;
     pedido.t = selectorPrecio.value;
+    pedido.metodo = "General / Otro"; // Valor por defecto
     
     const infoP = document.getElementById('infoPedido');
     if (infoP) {
         infoP.innerHTML = `📦 <b>PRODUCTO:</b> ${pedido.prod}<br>⏳ <b>TIEMPO:</b> ${pedido.t}`;
     }
     
+    abrirInterfazPedido(vid);
+}
+
+/**
+ * Abre el modal y configura el video de referencia.
+ */
+function abrirInterfazPedido(vid) {
     const btnV = document.getElementById('btnVideo');
     if (btnV) {
         btnV.onclick = () => {
@@ -154,15 +182,19 @@ function solicitar(prod, id, vid) {
 }
 
 /**
- * WhatsApp del administrador.
+ * WhatsApp del administrador con los detalles actualizados.
  */
 function enviarWhatsApp() {
     if (!pedido.pais || pedido.pais === "") { 
-        alert("Por favor, selecciona primero tu país."); 
+        alert("⚠️ Por favor, selecciona primero tu país."); 
         return; 
     }
     const tel = "584243132113";
-    const msg = `Hola STYLEHACKS! 🚀 Ya realicé mi pago.%0A%0A📦 *Producto:* ${pedido.prod}%0A⏳ *Tiempo:* ${pedido.t}%0A🌎 *País:* ${pedido.pais}%0A%0AAdjunto el comprobante de transferencia.`;
+    
+    // Si hay un método seleccionado, lo agregamos al texto
+    const infoMetodo = pedido.metodo ? `%0A💳 *Método de Pago:* ${pedido.metodo}` : "";
+    
+    const msg = `Hola STYLEHACKS! 🚀 Ya realicé mi pago.%0A%0A📦 *Producto:* ${pedido.prod}%0A⏳ *Tiempo:* ${pedido.t}${infoMetodo}%0A🌎 *País:* ${pedido.pais}%0A%0AAdjunto el comprobante de transferencia.`;
     window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
 }
 
@@ -196,4 +228,3 @@ window.onclick = (e) => {
     const m = document.getElementById('miModal');
     if (e.target == m) cerrarModal();
 };
-    
