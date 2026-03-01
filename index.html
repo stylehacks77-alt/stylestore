@@ -1,4 +1,4 @@
-1<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -56,13 +56,39 @@
             <div class="badge-android">ANDROID</div>
             <h2 class="product-title">DRIP MOBILE</h2>
             <p class="features">Aimkill, Speed, ESP, Teleport, Ghost Node.</p>
-            <select id="p1" class="price-sel">
-                <option value="1 Día - $4.00">1 Día - $4.00</option>
-                <option value="7 Días - $10.00">7 Días - $10.00</option>
-                <option value="15 Días - $15.00">15 Días - $15.00</option>
-                <option value="30 Días - $20.00.">30 Días - $20.00</option>
-            </select>
-            <button class="btn-buy" onclick="solicitar('DRIP MOBILE', 'p1', 'drip.mp4')">COMPRAR</button>
+            
+            <div style="background: rgba(0, 242, 255, 0.1); border: 1px dashed #00f2ff; border-radius: 12px; padding: 12px; margin-top: 15px;">
+                <label style="color:#00f2ff; font-size:0.65em; font-weight:bold; display:block; margin-bottom:5px;">🎁 OFERTA ESPECIAL:</label>
+                
+                <select id="p1_promo" class="price-sel" style="width:100%; border-color:#00f2ff; margin-bottom:10px;">
+                    <option value="1 Día (Promo) - $3.30">1 Día - $3.30</option>
+                    <option value="7 Días (Promo) - $8.00">7 Días - $8.00</option>
+                    <option value="15 Días (Promo) - $13.00">15 Días - $13.00</option>
+                    <option value="30 Días (Promo) - $17.00">30 Días - $17.00</option>
+                </select>
+
+                <label style="color:#fff; font-size:0.6em; display:block; margin-bottom:5px;">PAGAR CON:</label>
+                <select id="metodo_promo" class="price-sel" style="width:100%; border-color:#00f2ff; background:#000; color:#00f2ff;">
+                    <option value="PayPal">PayPal</option>
+                    <option value="Zinli">Zinli</option>
+                    <option value="Binance">Binance</option>
+                    <option value="Pago Móvil">Pago Móvil</option>
+                    <option value="Nequi">Nequi</option>
+                </select>
+
+                <button class="btn-buy" onclick="solicitarPromo('DRIP MOBILE (PROMO)', 'p1_promo', 'metodo_promo', 'drip.mp4')" style="margin-top:10px; padding:10px; font-size:0.8em; background:#00f2ff; color:#000;">COMPRAR CON DESCUENTO</button>
+            </div>
+
+            <div style="margin-top: 20px; border-top: 1px solid #222; padding-top: 10px;">
+                <label style="color:#555; font-size:0.65em; font-weight:bold; display:block; margin-bottom:5px;">PRECIOS ESTÁNDAR (OTROS MÉTODOS):</label>
+                <select id="p1" class="price-sel" style="width:100%;">
+                    <option value="1 Día - $4.00">1 Día - $4.00</option>
+                    <option value="7 Días - $10.00">7 Días - $10.00</option>
+                    <option value="15 Días - $15.00">15 Días - $15.00</option>
+                    <option value="30 Días - $20.00">30 Días - $20.00</option>
+                </select>
+                <button class="btn-buy" onclick="solicitar('DRIP MOBILE', 'p1', 'drip.mp4')">COMPRAR (PRECIO NORMAL)</button>
+            </div>
         </article>
 
         <article class="card neon-purple">
