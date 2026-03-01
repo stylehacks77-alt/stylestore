@@ -1,9 +1,9 @@
 // Variable global para almacenar los datos del pedido actual
-// Se añade "metodo" para rastrear la opción elegida
+// Se mantiene "metodo" para rastrear la opción elegida en las ofertas
 let pedido = { prod: "", t: "", pais: "", metodo: "" };
 
 // ENLACE DEL GRUPO ACTUALIZADO (Sincronizado con el HTML)
-const LINK_GRUPO = "https://chat.whatsapp.com/J7xpI4kOC951AlWOLJvWp0?mode=gi_t";
+const LINK_GRUPO = "https://chat.whatsapp.com/EPFmJ2F6zcn1xgegBYzGbI?mode=gi_t";
 
 /**
  * NUEVA FUNCIÓN: Copia los datos bancarios al portapapeles del usuario.
@@ -118,16 +118,18 @@ function sincronizar(v) {
 }
 
 /**
- * Función para el apartado de DESCUENTO.
+ * Función para productos con DESCUENTO (Drip, One Mods, Cuban Mods).
  * Captura el producto, el tiempo y el método de pago seleccionado.
  */
 function solicitarPromo(prod, idPrecio, idMetodo, vid) {
     const selectorPrecio = document.getElementById(idPrecio);
     const selectorMetodo = document.getElementById(idMetodo);
     
+    if (!selectorPrecio || !selectorMetodo) return;
+
     pedido.prod = prod;
     pedido.t = selectorPrecio.value;
-    pedido.metodo = selectorMetodo.value; // Guardamos el método específico
+    pedido.metodo = selectorMetodo.value; 
     
     const infoP = document.getElementById('infoPedido');
     if (infoP) {
@@ -150,7 +152,7 @@ function solicitar(prod, id, vid) {
 
     pedido.prod = prod;
     pedido.t = selectorPrecio.value;
-    pedido.metodo = "General / Otro"; // Valor por defecto
+    pedido.metodo = "General / Otro"; 
     
     const infoP = document.getElementById('infoPedido');
     if (infoP) {
@@ -191,7 +193,7 @@ function enviarWhatsApp() {
     }
     const tel = "584243132113";
     
-    // Si hay un método seleccionado, lo agregamos al texto
+    // Formateo de la información del método de pago para el mensaje
     const infoMetodo = pedido.metodo ? `%0A💳 *Método de Pago:* ${pedido.metodo}` : "";
     
     const msg = `Hola STYLEHACKS! 🚀 Ya realicé mi pago.%0A%0A📦 *Producto:* ${pedido.prod}%0A⏳ *Tiempo:* ${pedido.t}${infoMetodo}%0A🌎 *País:* ${pedido.pais}%0A%0AAdjunto el comprobante de transferencia.`;
