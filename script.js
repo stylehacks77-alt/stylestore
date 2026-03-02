@@ -140,7 +140,7 @@ function solicitarPromo(prod, idPrecio, idMetodo, vid) {
 }
 
 /**
- * Función estándar para precios normales.
+ * Función estándar para precios normales (Ahora incluye CUBAN MODS estándar).
  */
 function solicitar(prod, id, vid) {
     const selectorPrecio = document.getElementById(id);
@@ -194,7 +194,7 @@ function enviarWhatsApp() {
     const tel = "584243132113";
     
     // Formateo de la información del método de pago para el mensaje
-    const infoMetodo = pedido.metodo ? `%0A💳 *Método de Pago:* ${pedido.metodo}` : "";
+    const infoMetodo = pedido.metodo && pedido.metodo !== "General / Otro" ? `%0A💳 *Método de Pago:* ${pedido.metodo}` : "";
     
     const msg = `Hola STYLEHACKS! 🚀 Ya realicé mi pago.%0A%0A📦 *Producto:* ${pedido.prod}%0A⏳ *Tiempo:* ${pedido.t}${infoMetodo}%0A🌎 *País:* ${pedido.pais}%0A%0AAdjunto el comprobante de transferencia.`;
     window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
