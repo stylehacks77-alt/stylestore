@@ -118,7 +118,7 @@ function sincronizar(v) {
 }
 
 /**
- * Función para productos con DESCUENTO (Drip, One Mods, Cuban Mods).
+ * Función para productos con DESCUENTO (Drip, One Mods).
  * Captura el producto, el tiempo y el método de pago seleccionado.
  */
 function solicitarPromo(prod, idPrecio, idMetodo, vid) {
@@ -140,7 +140,7 @@ function solicitarPromo(prod, idPrecio, idMetodo, vid) {
 }
 
 /**
- * Función estándar para precios normales (Ahora incluye CUBAN MODS estándar).
+ * Función estándar para precios normales (Ahora incluye CUBAN MODS estándar, FLORITE IOS y CUBAN RAGE PC).
  */
 function solicitar(prod, id, vid) {
     const selectorPrecio = document.getElementById(id);
@@ -166,17 +166,9 @@ function solicitar(prod, id, vid) {
  * Abre el modal y configura el video de referencia.
  */
 function abrirInterfazPedido(vid) {
-    const btnV = document.getElementById('btnVideo');
-    if (btnV) {
-        btnV.onclick = () => {
-            const r = document.getElementById('reproductor');
-            const vT = document.getElementById('vid');
-            if (r && vT) { 
-                vT.src = vid; 
-                r.style.display = 'flex'; 
-                vT.play(); 
-            }
-        };
+    const vT = document.getElementById('vid');
+    if (vT && vid) { 
+        vT.src = vid; 
     }
     
     const modal = document.getElementById('miModal');
@@ -230,3 +222,4 @@ window.onclick = (e) => {
     const m = document.getElementById('miModal');
     if (e.target == m) cerrarModal();
 };
+    
