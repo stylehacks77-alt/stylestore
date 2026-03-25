@@ -3,7 +3,7 @@
 let pedido = { prod: "", t: "", pais: "", metodo: "" };
 
 // ENLACE DEL GRUPO ACTUALIZADO (Sincronizado con el HTML)
-const LINK_GRUPO = "https://chat.whatsapp.com/EPFmJ2F6zcn1xgegBYzGbI?mode=gi_t";
+const LINK_GRUPO = "https://chat.whatsapp.com/GgLGErIQynBDXKKiFFrE4d?mode=gi_t";
 
 /**
  * NUEVA FUNCIÓN: Copia los datos bancarios al portapapeles del usuario.
@@ -51,7 +51,7 @@ function sincronizar(v) {
     let info = "";
     switch(v) {
         case "Argentina": 
-            info = "🇦🇷 Uala: CVU 0000007900203350273548 | Alias: C.CORREA1315.UALA"; 
+            info = "🇦🇷 Ualá | Nombre: César Correa | CVU: 0000184305010007732302 | Alias: cescorrea1"; 
             break;
         case "Bolivia": 
             info = "🇧🇴 Yape: N° Cuenta 52656932 | Yape QR: Código disponible en imagen"; 
@@ -75,7 +75,7 @@ function sincronizar(v) {
             info = "🇪🇸 Bizum: 637 07 09 26 (Xiomari Moreno)"; 
             break;
         case "USA": 
-            info = "🇺🇸 Zelle: +1 (754) 317-1482 (Tickets DAVID)"; 
+            info = "🇺🇸 Zelle: elbateresa26@gmail.com (Mínimo $20.00 USD)"; 
             break;
         case "Guatemala": 
             info = "🇬🇹 Banrural: N° Cuenta 4431164091"; 
@@ -140,7 +140,8 @@ function solicitarPromo(prod, idPrecio, idMetodo, vid) {
 }
 
 /**
- * Función estándar para precios normales (Ahora incluye CUBAN MODS estándar, FLORITE IOS y CUBAN RAGE PC).
+ * Función estándar para precios normales.
+ * Soporta CUBAN MODS, DRIP, STRICKS, HG, BYPASS, FLORITE, CUBAN RAGE, BR MODS y PATO TEAM.
  */
 function solicitar(prod, id, vid) {
     const selectorPrecio = document.getElementById(id);
@@ -159,6 +160,19 @@ function solicitar(prod, id, vid) {
         infoP.innerHTML = `📦 <b>PRODUCTO:</b> ${pedido.prod}<br>⏳ <b>TIEMPO:</b> ${pedido.t}`;
     }
     
+    // Configurar el botón de video dentro del modal antes de abrirlo
+    const btnV = document.getElementById('btnVideo');
+    if (btnV) {
+        btnV.onclick = () => {
+            const vT = document.getElementById('vid');
+            if (vT) { 
+                vT.src = vid; 
+                document.getElementById('reproductor').style.display = 'flex';
+                vT.play();
+            }
+        };
+    }
+    
     abrirInterfazPedido(vid);
 }
 
@@ -166,11 +180,6 @@ function solicitar(prod, id, vid) {
  * Abre el modal y configura el video de referencia.
  */
 function abrirInterfazPedido(vid) {
-    const vT = document.getElementById('vid');
-    if (vT && vid) { 
-        vT.src = vid; 
-    }
-    
     const modal = document.getElementById('miModal');
     if (modal) modal.style.display = 'flex';
 }
@@ -222,4 +231,3 @@ window.onclick = (e) => {
     const m = document.getElementById('miModal');
     if (e.target == m) cerrarModal();
 };
-    
