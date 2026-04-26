@@ -6,6 +6,18 @@ let pedido = { prod: "", t: "", pais: "", metodo: "" };
 const LINK_GRUPO = "https://chat.whatsapp.com/GgLGErIQynBDXKKiFFrE4d?mode=gi_t";
 
 /**
+ * NUEVA FUNCIÓN: BLOQUEO DE ENTRADA
+ * Abre el grupo de WhatsApp en una nueva pestaña y oculta el protector de pantalla.
+ */
+function unirseYEntrar() {
+    window.open(LINK_GRUPO, "_blank");
+    const bloqueo = document.getElementById("bloqueo-inicial");
+    if (bloqueo) {
+        bloqueo.style.display = "none";
+    }
+}
+
+/**
  * NUEVA FUNCIÓN: Copia los datos bancarios al portapapeles del usuario.
  */
 function copiarDatos() {
@@ -119,7 +131,6 @@ function sincronizar(v) {
 
 /**
  * Función para productos con DESCUENTO (Drip, One Mods).
- * Captura el producto, el tiempo y el método de pago seleccionado.
  */
 function solicitarPromo(prod, idPrecio, idMetodo, vid) {
     const selectorPrecio = document.getElementById(idPrecio);
@@ -141,7 +152,6 @@ function solicitarPromo(prod, idPrecio, idMetodo, vid) {
 
 /**
  * Función estándar para precios normales.
- * Soporta CUBAN MODS, DRIP, STRICKS, HG, BYPASS, FLORITE, CUBAN RAGE, BR MODS y PATO TEAM.
  */
 function solicitar(prod, id, vid) {
     const selectorPrecio = document.getElementById(id);
@@ -160,7 +170,6 @@ function solicitar(prod, id, vid) {
         infoP.innerHTML = `📦 <b>PRODUCTO:</b> ${pedido.prod}<br>⏳ <b>TIEMPO:</b> ${pedido.t}`;
     }
     
-    // Configurar el botón de video dentro del modal antes de abrirlo
     const btnV = document.getElementById('btnVideo');
     if (btnV) {
         btnV.onclick = () => {
@@ -193,10 +202,7 @@ function enviarWhatsApp() {
         return; 
     }
     const tel = "584243132113";
-    
-    // Formateo de la información del método de pago para el mensaje
     const infoMetodo = pedido.metodo && pedido.metodo !== "General / Otro" ? `%0A💳 *Método de Pago:* ${pedido.metodo}` : "";
-    
     const msg = `Hola STYLEHACKS! 🚀 Ya realicé mi pago.%0A%0A📦 *Producto:* ${pedido.prod}%0A⏳ *Tiempo:* ${pedido.t}${infoMetodo}%0A🌎 *País:* ${pedido.pais}%0A%0AAdjunto el comprobante de transferencia.`;
     window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
 }
@@ -226,7 +232,7 @@ function cerrarVid() {
     if (r) r.style.display = 'none'; 
 }
 
-// Cerrar al hacer clic fuera
+// Cerrar al hacer clic fuera del modal
 window.onclick = (e) => {
     const m = document.getElementById('miModal');
     if (e.target == m) cerrarModal();
