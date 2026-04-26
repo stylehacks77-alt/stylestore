@@ -6,24 +6,29 @@ let pedido = { prod: "", t: "", pais: "", metodo: "" };
 const LINK_GRUPO = "https://chat.whatsapp.com/GgLGErIQynBDXKKiFFrE4d?mode=gi_t";
 
 /**
- * LÓGICA DE MEMORIA: Verifica si el usuario ya accedió anteriormente.
- * No elimina nada, solo añade el control de visualización inicial.
+ * LÓGICA DE MEMORIA: Verifica si ya entró antes al cargar la página.
  */
 document.addEventListener("DOMContentLoaded", function() {
     const yaSeUnio = localStorage.getItem("sh_acceso_concedido");
     const bloqueo = document.getElementById("bloqueo-inicial");
     
     if (!yaSeUnio && bloqueo) {
+        // Si es la primera vez, mostramos el bloqueo con difuminado
         bloqueo.style.display = "flex";
     }
 });
 
 /**
- * NUEVA FUNCIÓN: Permite el acceso, guarda la memoria y abre el grupo.
+ * FUNCIÓN DE ENTRADA: Unirse al grupo y desbloquear la página para siempre.
  */
 function unirseYEntrar() {
+    // 1. Abrimos el grupo de WhatsApp
     window.open(LINK_GRUPO, "_blank");
+    
+    // 2. Guardamos en la memoria del navegador que ya se unió
     localStorage.setItem("sh_acceso_concedido", "true");
+    
+    // 3. Ocultamos el bloqueo
     const bloqueo = document.getElementById("bloqueo-inicial");
     if (bloqueo) {
         bloqueo.style.display = "none";
@@ -144,7 +149,6 @@ function sincronizar(v) {
 
 /**
  * Función para productos con DESCUENTO (Drip, One Mods).
- * Captura el producto, el tiempo y el método de pago seleccionado.
  */
 function solicitarPromo(prod, idPrecio, idMetodo, vid) {
     const selectorPrecio = document.getElementById(idPrecio);
@@ -166,7 +170,6 @@ function solicitarPromo(prod, idPrecio, idMetodo, vid) {
 
 /**
  * Función estándar para precios normales.
- * Soporta CUBAN MODS, DRIP, STRICKS, HG, BYPASS, FLORITE, CUBAN RAGE, BR MODS y PATO TEAM.
  */
 function solicitar(prod, id, vid) {
     const selectorPrecio = document.getElementById(id);
@@ -185,7 +188,6 @@ function solicitar(prod, id, vid) {
         infoP.innerHTML = `📦 <b>PRODUCTO:</b> ${pedido.prod}<br>⏳ <b>TIEMPO:</b> ${pedido.t}`;
     }
     
-    // Configurar el botón de video dentro del modal antes de abrirlo
     const btnV = document.getElementById('btnVideo');
     if (btnV) {
         btnV.onclick = () => {
@@ -218,10 +220,7 @@ function enviarWhatsApp() {
         return; 
     }
     const tel = "584243132113";
-    
-    // Formateo de la información del método de pago para el mensaje
     const infoMetodo = pedido.metodo && pedido.metodo !== "General / Otro" ? `%0A💳 *Método de Pago:* ${pedido.metodo}` : "";
-    
     const msg = `Hola STYLEHACKS! 🚀 Ya realicé mi pago.%0A%0A📦 *Producto:* ${pedido.prod}%0A⏳ *Tiempo:* ${pedido.t}${infoMetodo}%0A🌎 *País:* ${pedido.pais}%0A%0AAdjunto el comprobante de transferencia.`;
     window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
 }
@@ -256,4 +255,3 @@ window.onclick = (e) => {
     const m = document.getElementById('miModal');
     if (e.target == m) cerrarModal();
 };
-                
