@@ -51,7 +51,7 @@ function sincronizar(v) {
     let info = "";
     switch(v) {
         case "Argentina": 
-            info = "🇦🇷 Ualá |  
+            info = "🇦🇷 Ualá | Nombre: César Correa | CVU: 0000184305010007732302 | Alias: cescorrea1"; 
             break;
         case "Bolivia": 
             info = "🇧🇴 Yape: N° Cuenta 52656932 | Yape QR: Código disponible en imagen"; 
@@ -231,3 +231,4 @@ window.onclick = (e) => {
     const m = document.getElementById('miModal');
     if (e.target == m) cerrarModal();
 };
+    
