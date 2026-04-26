@@ -1,16 +1,34 @@
 // Variable global para almacenar los datos del pedido actual
-// Se mantiene "metodo" para rastrear la opción elegida en las ofertas
 let pedido = { prod: "", t: "", pais: "", metodo: "" };
 
-// ENLACE DEL GRUPO ACTUALIZADO (Sincronizado con el HTML)
+// ENLACE DEL GRUPO ACTUALIZADO
 const LINK_GRUPO = "https://chat.whatsapp.com/GgLGErIQynBDXKKiFFrE4d?mode=gi_t";
 
 /**
- * NUEVA FUNCIÓN: BLOQUEO DE ENTRADA
- * Abre el grupo de WhatsApp en una nueva pestaña y oculta el protector de pantalla.
+ * LÓGICA DE MEMORIA Y DIFUMINADO
+ * Se ejecuta apenas carga la página para verificar si el usuario ya entró antes.
+ */
+document.addEventListener("DOMContentLoaded", function() {
+    const yaSeUnio = localStorage.getItem("usuario_unido_sh");
+    const bloqueo = document.getElementById("bloqueo-inicial");
+    
+    if (!yaSeUnio && bloqueo) {
+        // Si es la primera vez, mostramos el bloqueo con difuminado
+        bloqueo.style.display = "flex";
+    }
+});
+
+/**
+ * Función para unirse al grupo y desbloquear la página para siempre.
  */
 function unirseYEntrar() {
+    // 1. Abrimos el grupo
     window.open(LINK_GRUPO, "_blank");
+    
+    // 2. Guardamos la marca en el navegador
+    localStorage.setItem("usuario_unido_sh", "true");
+    
+    // 3. Quitamos el bloqueo
     const bloqueo = document.getElementById("bloqueo-inicial");
     if (bloqueo) {
         bloqueo.style.display = "none";
@@ -18,7 +36,7 @@ function unirseYEntrar() {
 }
 
 /**
- * NUEVA FUNCIÓN: Copia los datos bancarios al portapapeles del usuario.
+ * Función para copiar los datos bancarios al portapapeles.
  */
 function copiarDatos() {
     const texto = document.getElementById('modal-data').innerText;
@@ -29,7 +47,6 @@ function copiarDatos() {
     }
 
     navigator.clipboard.writeText(texto).then(() => {
-        // Feedback visual en el botón de copiar
         const btnCopy = document.getElementById('btnCopiar');
         if (btnCopy) {
             const originalText = btnCopy.innerHTML;
@@ -44,13 +61,12 @@ function copiarDatos() {
             }, 2000);
         }
     }).catch(err => {
-        console.error('Error al intentar copiar: ', err);
         alert("No se pudo copiar automáticamente. Por favor, selecciona el texto manualmente.");
     });
 }
 
 /**
- * Sincroniza la selección de país y muestra los datos bancarios correspondientes.
+ * Sincroniza la selección de país y muestra los datos bancarios actualizados.
  */
 function sincronizar(v) {
     pedido.pais = v;
@@ -63,61 +79,61 @@ function sincronizar(v) {
     let info = "";
     switch(v) {
         case "Argentina": 
-            info = "🇦🇷 Mercado Pago / Ualá"; 
+            info = "🇦🇷 Ualá | Nombre: César Correa | CVU: 0000184305010007732302 | Alias: cescorrea1"; 
             break;
         case "Bolivia": 
-            info = "🇧🇴 Banco Unión / Yape"; 
+            info = "🇧🇴 Yape: N° Cuenta 52656932 | Yape QR: Código disponible en imagen"; 
             break;
         case "Brasil": 
-            info = "🇧🇷 PIX"; 
+            info = "🇧🇷 PIX: Chave 91991076791"; 
             break;
         case "Chile": 
-            info = "🇨🇱 Banco Estado (CuentaRUT)"; 
+            info = "🇨🇱 Banco Estado (CuentaRUT): 23710151 | Titular: XAVIER FUENZALIDA | RUT: 23.710.151-0"; 
             break; 
         case "Colombia": 
-            info = "🇨🇴 NEQUI / Bancolombia"; 
+            info = "🇨🇴 NEQUI: 3233438983"; 
             break;
         case "Costa Rica": 
-            info = "🇨🇷 SINPE Móvil"; 
+            info = "🇨🇷 SINPE Móvil: 72805302"; 
             break;
         case "Ecuador": 
-            info = "🇪🇨 Banco Pichincha / Banco Guayaquil"; 
+            info = "🇪🇨 Banco Pichincha: N° Cuenta 2207195565"; 
             break;
         case "España": 
-            info = "🇪🇸 Bizum / BBVA"; 
+            info = "🇪🇸 Bizum: 637 07 09 26 (Xiomari Moreno)"; 
             break;
         case "USA": 
-            info = "🇺🇸 Zelle"; 
+            info = "🇺🇸 Zelle: elbateresa26@gmail.com (Mínimo $20.00 USD)"; 
             break;
         case "Guatemala": 
-            info = "🇬🇹 Banrural / Banco Industrial"; 
+            info = "🇬🇹 Banrural: N° Cuenta 4431164091"; 
             break;
         case "Honduras": 
-            info = "🇭🇳 Bampais / Ficohsa"; 
+            info = "🇭🇳 Bampais: N° Cuenta 216400100524"; 
             break;
         case "Mexico": 
-            info = "🇲🇽 Albo / Nu México / OXXO"; 
+            info = "🇲🇽 Albo: 721180100042683432 | Nu México (OXXO): 5101 2506 8691 9389"; 
             break;
         case "Nicaragua": 
-            info = "🇳🇮 BAC / Banpro"; 
+            info = "🇳🇮 BAC: 371674409 | IBAN: NI37BAMC0000000000371674409"; 
             break;
         case "Panama": 
-            info = "🇵🇦 Banco General"; 
+            info = "🇵🇦 Consultar datos de transferencia al privado."; 
             break;
         case "Paraguay": 
-            info = "🇵🇾 Itaú / Billetera Personal / Tigo"; 
+            info = "🇵🇾 Itaú: 300406285 (Diego Leiva) | Billetera Personal: 0993363424"; 
             break;
         case "Peru": 
-            info = "🇵🇪 Yape / Plin / BCP"; 
+            info = "🇵🇪 Yape / Plin: 954302258"; 
             break;
         case "Republica Dominicana": 
-            info = "🇩🇴 Banco Popular / BHD / Qik / Banreservas"; 
+            info = "🇩🇴 Popular: 837147719 | BHD: 34478720012 | Qik: 1002173707"; 
             break;
         case "Uruguay": 
-            info = "🇺🇾 Prex / Mi Dinero"; 
+            info = "🇺🇾 Consultar datos locales al WhatsApp."; 
             break;
         case "Venezuela": 
-            info = "🇻🇪 Banco de Venezuela / Banesco / Pago Móvil"; 
+            info = "🇻🇪 Venezuela (0102) | 31.376.662 | 0412-8240604 | Pago Móvil"; 
             break;
         default: 
             info = "Selecciona un país para ver los datos bancarios.";
@@ -130,12 +146,11 @@ function sincronizar(v) {
 }
 
 /**
- * Función para productos con DESCUENTO (Drip, One Mods).
+ * Función para productos con DESCUENTO.
  */
 function solicitarPromo(prod, idPrecio, idMetodo, vid) {
     const selectorPrecio = document.getElementById(idPrecio);
     const selectorMetodo = document.getElementById(idMetodo);
-    
     if (!selectorPrecio || !selectorMetodo) return;
 
     pedido.prod = prod;
@@ -146,16 +161,14 @@ function solicitarPromo(prod, idPrecio, idMetodo, vid) {
     if (infoP) {
         infoP.innerHTML = `📦 <b>PRODUCTO:</b> ${pedido.prod}<br>⏳ <b>TIEMPO:</b> ${pedido.t}<br>💳 <b>MÉTODO:</b> ${pedido.metodo}`;
     }
-    
     abrirInterfazPedido(vid);
 }
 
 /**
- * Función estándar para precios normales.
+ * Función estándar para compras.
  */
 function solicitar(prod, id, vid) {
     const selectorPrecio = document.getElementById(id);
-    
     if (!selectorPrecio || selectorPrecio.disabled) {
         alert("Lo sentimos, este producto no está disponible en este momento.");
         return;
@@ -181,21 +194,14 @@ function solicitar(prod, id, vid) {
             }
         };
     }
-    
     abrirInterfazPedido(vid);
 }
 
-/**
- * Abre el modal y configura el video de referencia.
- */
 function abrirInterfazPedido(vid) {
     const modal = document.getElementById('miModal');
     if (modal) modal.style.display = 'flex';
 }
 
-/**
- * WhatsApp del administrador con los detalles actualizados.
- */
 function enviarWhatsApp() {
     if (!pedido.pais || pedido.pais === "") { 
         alert("⚠️ Por favor, selecciona primero tu país."); 
@@ -207,24 +213,15 @@ function enviarWhatsApp() {
     window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
 }
 
-/**
- * Función para unirse al grupo.
- */
 function irAlCanal() {
     window.open(LINK_GRUPO, '_blank');
 }
 
-/**
- * Cierra el modal.
- */
 function cerrarModal() {
     const modal = document.getElementById('miModal');
     if (modal) modal.style.display = 'none';
 }
 
-/**
- * Cierra el reproductor de video.
- */
 function cerrarVid() { 
     const r = document.getElementById('reproductor'); 
     const v = document.getElementById('vid');
@@ -232,9 +229,7 @@ function cerrarVid() {
     if (r) r.style.display = 'none'; 
 }
 
-// Cerrar al hacer clic fuera del modal
 window.onclick = (e) => {
     const m = document.getElementById('miModal');
     if (e.target == m) cerrarModal();
 };
-
