@@ -1,34 +1,29 @@
 // Variable global para almacenar los datos del pedido actual
+// Se mantiene "metodo" para rastrear la opción elegida en las ofertas
 let pedido = { prod: "", t: "", pais: "", metodo: "" };
 
-// ENLACE DEL GRUPO ACTUALIZADO
+// ENLACE DEL GRUPO ACTUALIZADO (Sincronizado con el HTML)
 const LINK_GRUPO = "https://chat.whatsapp.com/GgLGErIQynBDXKKiFFrE4d?mode=gi_t";
 
 /**
- * LÓGICA DE MEMORIA Y DIFUMINADO
- * Se ejecuta apenas carga la página para verificar si el usuario ya entró antes.
+ * LÓGICA DE MEMORIA: Verifica si el usuario ya accedió anteriormente.
+ * No elimina nada, solo añade el control de visualización inicial.
  */
 document.addEventListener("DOMContentLoaded", function() {
-    const yaSeUnio = localStorage.getItem("usuario_unido_sh");
+    const yaSeUnio = localStorage.getItem("sh_acceso_concedido");
     const bloqueo = document.getElementById("bloqueo-inicial");
     
     if (!yaSeUnio && bloqueo) {
-        // Si es la primera vez, mostramos el bloqueo con difuminado
         bloqueo.style.display = "flex";
     }
 });
 
 /**
- * Función para unirse al grupo y desbloquear la página para siempre.
+ * NUEVA FUNCIÓN: Permite el acceso, guarda la memoria y abre el grupo.
  */
 function unirseYEntrar() {
-    // 1. Abrimos el grupo
     window.open(LINK_GRUPO, "_blank");
-    
-    // 2. Guardamos la marca en el navegador
-    localStorage.setItem("usuario_unido_sh", "true");
-    
-    // 3. Quitamos el bloqueo
+    localStorage.setItem("sh_acceso_concedido", "true");
     const bloqueo = document.getElementById("bloqueo-inicial");
     if (bloqueo) {
         bloqueo.style.display = "none";
@@ -36,7 +31,7 @@ function unirseYEntrar() {
 }
 
 /**
- * Función para copiar los datos bancarios al portapapeles.
+ * NUEVA FUNCIÓN: Copia los datos bancarios al portapapeles del usuario.
  */
 function copiarDatos() {
     const texto = document.getElementById('modal-data').innerText;
@@ -47,6 +42,7 @@ function copiarDatos() {
     }
 
     navigator.clipboard.writeText(texto).then(() => {
+        // Feedback visual en el botón de copiar
         const btnCopy = document.getElementById('btnCopiar');
         if (btnCopy) {
             const originalText = btnCopy.innerHTML;
@@ -61,12 +57,13 @@ function copiarDatos() {
             }, 2000);
         }
     }).catch(err => {
+        console.error('Error al intentar copiar: ', err);
         alert("No se pudo copiar automáticamente. Por favor, selecciona el texto manualmente.");
     });
 }
 
 /**
- * Sincroniza la selección de país y muestra los datos bancarios actualizados.
+ * Sincroniza la selección de país y muestra los datos bancarios correspondientes.
  */
 function sincronizar(v) {
     pedido.pais = v;
@@ -79,61 +76,61 @@ function sincronizar(v) {
     let info = "";
     switch(v) {
         case "Argentina": 
-            info = "🇦🇷 Ualá | Nombre: César Correa | CVU: 0000184305010007732302 | Alias: cescorrea1"; 
+            info = "🇦🇷 Mercado Pago / Ualá"; 
             break;
         case "Bolivia": 
-            info = "🇧🇴 Yape: N° Cuenta 52656932 | Yape QR: Código disponible en imagen"; 
+            info = "🇧🇴 Banco Unión / Yape"; 
             break;
         case "Brasil": 
-            info = "🇧🇷 PIX: Chave 91991076791"; 
+            info = "🇧🇷 PIX"; 
             break;
         case "Chile": 
-            info = "🇨🇱 Banco Estado (CuentaRUT): 23710151 | Titular: XAVIER FUENZALIDA | RUT: 23.710.151-0"; 
+            info = "🇨🇱 Banco Estado (CuentaRUT)"; 
             break; 
         case "Colombia": 
-            info = "🇨🇴 NEQUI: 3233438983"; 
+            info = "🇨🇴 NEQUI / Bancolombia"; 
             break;
         case "Costa Rica": 
-            info = "🇨🇷 SINPE Móvil: 72805302"; 
+            info = "🇨🇷 SINPE Móvil"; 
             break;
         case "Ecuador": 
-            info = "🇪🇨 Banco Pichincha: N° Cuenta 2207195565"; 
+            info = "🇪🇨 Banco Pichincha / Banco Guayaquil"; 
             break;
         case "España": 
-            info = "🇪🇸 Bizum: 637 07 09 26 (Xiomari Moreno)"; 
+            info = "🇪🇸 Bizum / BBVA"; 
             break;
         case "USA": 
-            info = "🇺🇸 Zelle: elbateresa26@gmail.com (Mínimo $20.00 USD)"; 
+            info = "🇺🇸 Zelle"; 
             break;
         case "Guatemala": 
-            info = "🇬🇹 Banrural: N° Cuenta 4431164091"; 
+            info = "🇬🇹 Banrural / Banco Industrial"; 
             break;
         case "Honduras": 
-            info = "🇭🇳 Bampais: N° Cuenta 216400100524"; 
+            info = "🇭🇳 Bampais / Ficohsa"; 
             break;
         case "Mexico": 
-            info = "🇲🇽 Albo: 721180100042683432 | Nu México (OXXO): 5101 2506 8691 9389"; 
+            info = "🇲🇽 Albo / Nu México / OXXO"; 
             break;
         case "Nicaragua": 
-            info = "🇳🇮 BAC: 371674409 | IBAN: NI37BAMC0000000000371674409"; 
+            info = "🇳🇮 BAC / Banpro"; 
             break;
         case "Panama": 
-            info = "🇵🇦 Consultar datos de transferencia al privado."; 
+            info = "🇵🇦 Banco General"; 
             break;
         case "Paraguay": 
-            info = "🇵🇾 Itaú: 300406285 (Diego Leiva) | Billetera Personal: 0993363424"; 
+            info = "🇵🇾 Itaú / Billetera Personal / Tigo"; 
             break;
         case "Peru": 
-            info = "🇵🇪 Yape / Plin: 954302258"; 
+            info = "🇵🇪 Yape / Plin / BCP"; 
             break;
         case "Republica Dominicana": 
-            info = "🇩🇴 Popular: 837147719 | BHD: 34478720012 | Qik: 1002173707"; 
+            info = "🇩🇴 Banco Popular / BHD / Qik / Banreservas"; 
             break;
         case "Uruguay": 
-            info = "🇺🇾 Consultar datos locales al WhatsApp."; 
+            info = "🇺🇾 Prex / Mi Dinero"; 
             break;
         case "Venezuela": 
-            info = "🇻🇪 Venezuela (0102) | 31.376.662 | 0412-8240604 | Pago Móvil"; 
+            info = "🇻🇪 Banco de Venezuela / Banesco / Pago Móvil"; 
             break;
         default: 
             info = "Selecciona un país para ver los datos bancarios.";
@@ -146,11 +143,13 @@ function sincronizar(v) {
 }
 
 /**
- * Función para productos con DESCUENTO.
+ * Función para productos con DESCUENTO (Drip, One Mods).
+ * Captura el producto, el tiempo y el método de pago seleccionado.
  */
 function solicitarPromo(prod, idPrecio, idMetodo, vid) {
     const selectorPrecio = document.getElementById(idPrecio);
     const selectorMetodo = document.getElementById(idMetodo);
+    
     if (!selectorPrecio || !selectorMetodo) return;
 
     pedido.prod = prod;
@@ -161,14 +160,17 @@ function solicitarPromo(prod, idPrecio, idMetodo, vid) {
     if (infoP) {
         infoP.innerHTML = `📦 <b>PRODUCTO:</b> ${pedido.prod}<br>⏳ <b>TIEMPO:</b> ${pedido.t}<br>💳 <b>MÉTODO:</b> ${pedido.metodo}`;
     }
+    
     abrirInterfazPedido(vid);
 }
 
 /**
- * Función estándar para compras.
+ * Función estándar para precios normales.
+ * Soporta CUBAN MODS, DRIP, STRICKS, HG, BYPASS, FLORITE, CUBAN RAGE, BR MODS y PATO TEAM.
  */
 function solicitar(prod, id, vid) {
     const selectorPrecio = document.getElementById(id);
+    
     if (!selectorPrecio || selectorPrecio.disabled) {
         alert("Lo sentimos, este producto no está disponible en este momento.");
         return;
@@ -183,6 +185,7 @@ function solicitar(prod, id, vid) {
         infoP.innerHTML = `📦 <b>PRODUCTO:</b> ${pedido.prod}<br>⏳ <b>TIEMPO:</b> ${pedido.t}`;
     }
     
+    // Configurar el botón de video dentro del modal antes de abrirlo
     const btnV = document.getElementById('btnVideo');
     if (btnV) {
         btnV.onclick = () => {
@@ -194,34 +197,53 @@ function solicitar(prod, id, vid) {
             }
         };
     }
+    
     abrirInterfazPedido(vid);
 }
 
+/**
+ * Abre el modal y configura el video de referencia.
+ */
 function abrirInterfazPedido(vid) {
     const modal = document.getElementById('miModal');
     if (modal) modal.style.display = 'flex';
 }
 
+/**
+ * WhatsApp del administrador con los detalles actualizados.
+ */
 function enviarWhatsApp() {
     if (!pedido.pais || pedido.pais === "") { 
         alert("⚠️ Por favor, selecciona primero tu país."); 
         return; 
     }
     const tel = "584243132113";
+    
+    // Formateo de la información del método de pago para el mensaje
     const infoMetodo = pedido.metodo && pedido.metodo !== "General / Otro" ? `%0A💳 *Método de Pago:* ${pedido.metodo}` : "";
+    
     const msg = `Hola STYLEHACKS! 🚀 Ya realicé mi pago.%0A%0A📦 *Producto:* ${pedido.prod}%0A⏳ *Tiempo:* ${pedido.t}${infoMetodo}%0A🌎 *País:* ${pedido.pais}%0A%0AAdjunto el comprobante de transferencia.`;
     window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
 }
 
+/**
+ * Función para unirse al grupo.
+ */
 function irAlCanal() {
     window.open(LINK_GRUPO, '_blank');
 }
 
+/**
+ * Cierra el modal.
+ */
 function cerrarModal() {
     const modal = document.getElementById('miModal');
     if (modal) modal.style.display = 'none';
 }
 
+/**
+ * Cierra el reproductor de video.
+ */
 function cerrarVid() { 
     const r = document.getElementById('reproductor'); 
     const v = document.getElementById('vid');
@@ -229,7 +251,9 @@ function cerrarVid() {
     if (r) r.style.display = 'none'; 
 }
 
+// Cerrar al hacer clic fuera
 window.onclick = (e) => {
     const m = document.getElementById('miModal');
     if (e.target == m) cerrarModal();
 };
+                
