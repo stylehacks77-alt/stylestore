@@ -36,7 +36,7 @@ function unirseYEntrar() {
 }
 
 /**
- * NUEVA FUNCIÓN: Copia los datos bancarios al portapapeles del usuario.
+ * NUEVA FUNCIÓN: Copia el texto del método de pago al portapapeles.
  */
 function copiarDatos() {
     const texto = document.getElementById('modal-data').innerText;
@@ -51,7 +51,7 @@ function copiarDatos() {
         const btnCopy = document.getElementById('btnCopiar');
         if (btnCopy) {
             const originalText = btnCopy.innerHTML;
-            btnCopy.innerHTML = "<i class='fas fa-check'></i> ¡DATOS COPIADOS!";
+            btnCopy.innerHTML = "<i class='fas fa-check'></i> ¡COPIADO!";
             btnCopy.style.background = "#ffffff";
             btnCopy.style.color = "#000000";
             
@@ -63,12 +63,12 @@ function copiarDatos() {
         }
     }).catch(err => {
         console.error('Error al intentar copiar: ', err);
-        alert("No se pudo copiar automáticamente. Por favor, selecciona el texto manualmente.");
+        alert("No se pudo copiar automáticamente.");
     });
 }
 
 /**
- * Sincroniza la selección de país y muestra los datos bancarios correspondientes.
+ * Sincroniza la selección de país y muestra SOLO los nombres de los métodos.
  */
 function sincronizar(v) {
     pedido.pais = v;
@@ -138,7 +138,7 @@ function sincronizar(v) {
             info = "🇻🇪 Banco de Venezuela / Banesco / Pago Móvil"; 
             break;
         default: 
-            info = "Selecciona un país para ver los datos bancarios.";
+            info = "Selecciona un país para ver los métodos de pago.";
     }
 
     const mainD = document.getElementById('main-data');
@@ -148,7 +148,7 @@ function sincronizar(v) {
 }
 
 /**
- * Función para productos con DESCUENTO (Drip, One Mods).
+ * Función para productos con DESCUENTO.
  */
 function solicitarPromo(prod, idPrecio, idMetodo, vid) {
     const selectorPrecio = document.getElementById(idPrecio);
@@ -169,7 +169,7 @@ function solicitarPromo(prod, idPrecio, idMetodo, vid) {
 }
 
 /**
- * Función estándar para precios normales.
+ * Función estándar para compras.
  */
 function solicitar(prod, id, vid) {
     const selectorPrecio = document.getElementById(id);
@@ -203,17 +203,11 @@ function solicitar(prod, id, vid) {
     abrirInterfazPedido(vid);
 }
 
-/**
- * Abre el modal y configura el video de referencia.
- */
 function abrirInterfazPedido(vid) {
     const modal = document.getElementById('miModal');
     if (modal) modal.style.display = 'flex';
 }
 
-/**
- * WhatsApp del administrador con los detalles actualizados.
- */
 function enviarWhatsApp() {
     if (!pedido.pais || pedido.pais === "") { 
         alert("⚠️ Por favor, selecciona primero tu país."); 
@@ -225,24 +219,15 @@ function enviarWhatsApp() {
     window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
 }
 
-/**
- * Función para unirse al grupo.
- */
 function irAlCanal() {
     window.open(LINK_GRUPO, '_blank');
 }
 
-/**
- * Cierra el modal.
- */
 function cerrarModal() {
     const modal = document.getElementById('miModal');
     if (modal) modal.style.display = 'none';
 }
 
-/**
- * Cierra el reproductor de video.
- */
 function cerrarVid() { 
     const r = document.getElementById('reproductor'); 
     const v = document.getElementById('vid');
@@ -250,7 +235,6 @@ function cerrarVid() {
     if (r) r.style.display = 'none'; 
 }
 
-// Cerrar al hacer clic fuera
 window.onclick = (e) => {
     const m = document.getElementById('miModal');
     if (e.target == m) cerrarModal();
