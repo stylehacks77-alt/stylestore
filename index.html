@@ -18,16 +18,18 @@
         #btnCopiar { transition: all 0.3s ease; }
         #btnCopiar:active { transform: scale(0.95); }
 
-        /* NUEVO: Estilos para el bloqueo de bienvenida */
+        /* NUEVO: Estilos para el bloqueo con difuminado (Glassmorphism) */
         #bloqueo-inicial {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #000;
-            z-index: 100000; /* Por encima de todo */
-            display: flex;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 100000;
+            display: none; /* Se activa por JS si es la primera vez */
             align-items: center;
             justify-content: center;
             text-align: center;
@@ -38,8 +40,8 @@
             border: 2px solid #00f2ff;
             padding: 30px;
             border-radius: 30px;
-            background: #0b0b0b;
-            box-shadow: 0 0 50px rgba(0, 242, 255, 0.2);
+            background: rgba(11, 11, 11, 0.95);
+            box-shadow: 0 0 50px rgba(0, 242, 255, 0.3);
         }
     </style>
 </head>
@@ -47,9 +49,9 @@
 
     <div id="bloqueo-inicial">
         <div class="bloqueo-content">
-            <h2 style="color: #00f2ff; margin-bottom: 20px;">⚠️ ACCESO REQUERIDO</h2>
+            <h2 style="color: #00f2ff; margin-bottom: 20px;">🚀 STYLEHACKS VIP</h2>
             <p style="color: #fff; font-size: 1.1em; margin-bottom: 25px; line-height: 1.6;">
-                Para seguir viendo la página web <b>STYLEHACKS</b>, debes unirte a nuestro grupo oficial de WhatsApp.
+                Para seguir viendo la página web <b>STYLEHACKS</b>, debes unirte al grupo de WhatsApp.
             </p>
             <button onclick="unirseYEntrar()" class="btn-pago-azul" style="background: #25d366; color: #fff;">
                 <i class="fab fa-whatsapp"></i> UNIRME AL GRUPO AHORA
@@ -255,15 +257,6 @@
         <button onclick="cerrarVid()" style="margin-top:20px; color:#ff4d4d; border:1px solid #ff4d4d; background:none; padding:10px 30px; border-radius:10px; font-weight:bold;">CERRAR</button>
     </div>
 
-    <script>
-        function unirseYEntrar() {
-            // Abre el grupo en una pestaña nueva
-            window.open("https://chat.whatsapp.com/GgLGErIQynBDXKKiFFrE4d?mode=gi_t", "_blank");
-            // Elimina el bloqueo para dejar ver la página
-            document.getElementById("bloqueo-inicial").style.display = "none";
-        }
-    </script>
     <script src="script.js"></script>
 </body>
 </html>
-
