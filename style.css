@@ -1,6 +1,5 @@
-Body {
+body {
     background: #030303;
-    /* Fondo animado con un degradado neón profundo en movimiento continuo */
     background-image: radial-gradient(circle at 2px 2px, rgba(0, 255, 204, 0.08) 1px, transparent 0);
     background-size: 30px 30px;
     animation: moverFondo 20s linear infinite;
@@ -13,7 +12,6 @@ Body {
     margin: 0;
 }
 
-/* Animación para darle vida al fondo simulando movimiento */
 @keyframes moverFondo {
     0% { background-position: 0px 0px; }
     100% { background-position: 30px 60px; }
@@ -25,17 +23,15 @@ Body {
     text-transform: uppercase; 
     margin-top: 20px;
     margin-bottom: 5px;
-    /* Efecto FUEGO cambiante continuo en el texto del logo */
-    background: linear-gradient(90deg, #FF4500, #FFD700, #FF0000, #FF4500);
+    background: linear-gradient(90deg, #00ffcc, #0077ff, #ff0077, #00ffcc);
     background-size: 300% auto;
     -webkit-background-clip: text; 
     -webkit-text-fill-color: transparent;
-    animation: arderFuego 3s linear infinite;
-    filter: drop-shadow(0 0 15px rgba(255, 69, 0, 0.5));
+    animation: arcoirisTexto 4s linear infinite;
+    filter: drop-shadow(0 0 15px rgba(0, 255, 204, 0.5));
 }
 
-/* Animación para el cambio de colores FUEGO continuo */
-@keyframes arderFuego {
+@keyframes arcoirisTexto {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
@@ -52,7 +48,6 @@ Body {
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
 }
 
-/* Sección de Pagos */
 .payment-section { 
     width: 100%; 
     max-width: 400px; 
@@ -89,7 +84,6 @@ Body {
     box-shadow: 0 10px 30px rgba(0,0,0,0.7), 0 0 15px rgba(0, 255, 204, 0.05);
 }
 
-/* Cuadrícula de Productos */
 .store-grid { 
     width: 100%; 
     max-width: 400px; 
@@ -109,7 +103,6 @@ Body {
     transform: translateY(-5px);
 }
 
-/* Bordes superiores neón animados */
 .neon-blue { 
     border-top: 6px solid #00ffcc; 
     box-shadow: 0 15px 35px rgba(0, 255, 204, 0.05);
@@ -122,7 +115,7 @@ Body {
     top: -6px; left: 0; right: 0; height: 6px;
     background: linear-gradient(90deg, #00ffcc, #0077ff, #00ffcc);
     background-size: 200% auto;
-    animation: arderFuego 3s linear infinite;
+    animation: arcoirisTexto 3s linear infinite;
     border-radius: 28px 28px 0 0;
 }
 
@@ -138,7 +131,7 @@ Body {
     top: -6px; left: 0; right: 0; height: 6px;
     background: linear-gradient(90deg, #ff0077, #9900ff, #ff0077);
     background-size: 200% auto;
-    animation: arderFuego 3s linear infinite;
+    animation: arcoirisTexto 3s linear infinite;
     border-radius: 28px 28px 0 0;
 }
 
@@ -166,18 +159,17 @@ Body {
     box-shadow: 0 0 8px rgba(46, 204, 113, 0.2);
 }
 
-/* Nombres de los productos con efecto FUEGO */
 .product-title { 
     font-size: 26px; 
     margin: 10px 0; 
     font-weight: 800; 
     letter-spacing: -1px;
-    background: linear-gradient(90deg, #FF4500, #FFD700, #FF0000, #FF4500);
+    background: linear-gradient(90deg, #00ffcc, #0077ff, #ff0077, #00ffcc);
     background-size: 300% auto;
     -webkit-background-clip: text; 
     -webkit-text-fill-color: transparent;
-    animation: arderFuego 3s linear infinite;
-    filter: drop-shadow(0 0 10px rgba(255, 69, 0, 0.3));
+    animation: arcoirisTexto 4s linear infinite;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.3));
 }
 
 .desc { 
@@ -225,7 +217,6 @@ Body {
     box-shadow: 0 6px 20px rgba(46, 204, 113, 0.6);
 }
 
-/* Botones y Footer */
 .wa-btn { 
     display: block; 
     padding: 18px; 
@@ -248,7 +239,6 @@ Body {
     line-height: 1.8;
 }
 
-/* Modal */
 .modal-bg { 
     display: none; 
     position: fixed; 
@@ -313,19 +303,16 @@ Body {
     font-size: 12px;
 }
 
-/* ==========================================================================
-   NUEVA FUNCIÓN: NOTIFICACIONES FLOTANTES (IZQUIERDA)
-   ========================================================================== */
 .notif-referencia {
     position: fixed;
     bottom: 20px;
-    left: -400px;
+    left: 10px; /* Acercado al borde izquierdo */
     background: #06070d;
     border: 1px solid #00ffcc;
     border-left: 5px solid #00ffcc;
     border-radius: 20px;
     padding: 15px;
-    width: 290px;
+    width: 260px; /* Ligeramente más estrecho para no estorbar */
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.85), 0 0 15px rgba(0, 255, 204, 0.15);
     z-index: 100000;
     display: flex;
@@ -336,7 +323,7 @@ Body {
 }
 
 .notif-referencia.mostrar {
-    left: 20px;
+    left: 10px; 
 }
 
 .notif-header {
@@ -386,4 +373,35 @@ Body {
     color: #ff0077;
     font-weight: bold;
     text-transform: uppercase;
+}
+
+.animate-arcoiris {
+    background: linear-gradient(90deg, #00ffcc, #0077ff, #ff0077, #00ffcc);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: arcoirisTexto 4s linear infinite;
+}
+
+.float-wa-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    background-color: #25D366;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+    z-index: 99999;
+    transition: transform 0.3s ease;
+    text-decoration: none;
+    color: black;
+    font-size: 30px;
+}
+
+.float-wa-btn:hover {
+    transform: scale(1.1);
     }
