@@ -1,241 +1,59 @@
-// Variable global para almacenar los datos del pedido actual
-// Se mantiene "metodo" para rastrear la opción elegida en las ofertas
-let pedido = { prod: "", t: "", pais: "", metodo: "" };
-
-// ENLACE DEL GRUPO ACTUALIZADO (Sincronizado con el HTML)
-const LINK_GRUPO = "https://chat.whatsapp.com/GgLGErIQynBDXKKiFFrE4d?mode=gi_t";
-
-/**
- * LÓGICA DE MEMORIA: Verifica si ya entró antes al cargar la página.
- */
-document.addEventListener("DOMContentLoaded", function() {
-    const yaSeUnio = localStorage.getItem("sh_acceso_concedido");
-    const bloqueo = document.getElementById("bloqueo-inicial");
-    
-    if (!yaSeUnio && bloqueo) {
-        // Si es la primera vez, mostramos el bloqueo con difuminado
-        bloqueo.style.display = "flex";
-    }
-});
-
-/**
- * FUNCIÓN DE ENTRADA: Unirse al grupo y desbloquear la página para siempre.
- */
-function unirseYEntrar() {
-    // 1. Abrimos el grupo de WhatsApp
-    window.open(LINK_GRUPO, "_blank");
-    
-    // 2. Guardamos en la memoria del navegador que ya se unió
-    localStorage.setItem("sh_acceso_concedido", "true");
-    
-    // 3. Ocultamos el bloqueo
-    const bloqueo = document.getElementById("bloqueo-inicial");
-    if (bloqueo) {
-        bloqueo.style.display = "none";
-    }
-}
-
-/**
- * NUEVA FUNCIÓN: Copia el texto del método de pago al portapapeles.
- */
-function copiarDatos() {
-    const texto = document.getElementById('modal-data').innerText;
-    
-    if (!pedido.pais || pedido.pais === "" || texto.includes("Selecciona")) {
-        alert("⚠️ Por favor, selecciona un país primero.");
-        return;
-    }
-
-    navigator.clipboard.writeText(texto).then(() => {
-        // Feedback visual en el botón de copiar
-        const btnCopy = document.getElementById('btnCopiar');
-        if (btnCopy) {
-            const originalText = btnCopy.innerHTML;
-            btnCopy.innerHTML = "<i class='fas fa-check'></i> ¡COPIADO!";
-            btnCopy.style.background = "#ffffff";
-            btnCopy.style.color = "#000000";
-            
-            setTimeout(() => {
-                btnCopy.innerHTML = originalText;
-                btnCopy.style.background = "rgba(0, 242, 255, 0.1)";
-                btnCopy.style.color = "#00f2ff";
-            }, 2000);
-        }
-    }).catch(err => {
-        console.error('Error al intentar copiar: ', err);
-        alert("No se pudo copiar automáticamente.");
-    });
-}
-
-/**
- * Sincroniza la selección de país y muestra SOLO los nombres de los métodos.
- */
-function sincronizar(v) {
-    pedido.pais = v;
-    const mS = document.getElementById('main-country');
-    const modS = document.getElementById('modal-country');
-    
-    if (mS) mS.value = v;
-    if (modS) modS.value = v;
-    
-    let info = "";
-    switch(v) {
-        case "Argentina": 
-            info = "🇦🇷 Mercado Pago / Ualá"; 
-            break;
-        case "Bolivia": 
-            info = "🇧🇴 Banco Unión / Yape"; 
-            break;
-        case "Brasil": 
-            info = "🇧🇷 PIX"; 
-            break;
-        case "Chile": 
-            info = "🇨🇱 Banco Estado (CuentaRUT)"; 
-            break; 
-        case "Colombia": 
-            info = "🇨🇴 NEQUI / Bancolombia"; 
-            break;
-        case "Costa Rica": 
-            info = "🇨🇷 SINPE Móvil"; 
-            break;
-        case "Ecuador": 
-            info = "🇪🇨 Banco Pichincha / Banco Guayaquil"; 
-            break;
-        case "España": 
-            info = "🇪🇸 Bizum / BBVA"; 
-            break;
-        case "USA": 
-            info = "🇺🇸 Zelle"; 
-            break;
-        case "Guatemala": 
-            info = "🇬🇹 Banrural / Banco Industrial"; 
-            break;
-        case "Honduras": 
-            info = "🇭🇳 Bampais / Ficohsa"; 
-            break;
-        case "Mexico": 
-            info = "🇲🇽 Albo / Nu México / OXXO"; 
-            break;
-        case "Nicaragua": 
-            info = "🇳🇮 BAC / Banpro"; 
-            break;
-        case "Panama": 
-            info = "🇵🇦 Banco General"; 
-            break;
-        case "Paraguay": 
-            info = "🇵🇾 Itaú / Billetera Personal / Tigo"; 
-            break;
-        case "Peru": 
-            info = "🇵🇪 Yape / Plin / BCP"; 
-            break;
-        case "Republica Dominicana": 
-            info = "🇩🇴 Banco Popular / BHD / Qik / Banreservas"; 
-            break;
-        case "Uruguay": 
-            info = "🇺🇾 Prex / Mi Dinero"; 
-            break;
-        case "Venezuela": 
-            info = "🇻🇪 Banco de Venezuela / Banesco / Pago Móvil"; 
-            break;
-        default: 
-            info = "Selecciona un país para ver los métodos de pago.";
-    }
-
-    const mainD = document.getElementById('main-data');
-    const modalD = document.getElementById('modal-data');
-    if (mainD) mainD.innerText = info;
-    if (modalD) modalD.innerText = info;
-}
-
-/**
- * Función para productos con DESCUENTO.
- */
-function solicitarPromo(prod, idPrecio, idMetodo, vid) {
-    const selectorPrecio = document.getElementById(idPrecio);
-    const selectorMetodo = document.getElementById(idMetodo);
-    
-    if (!selectorPrecio || !selectorMetodo) return;
-
-    pedido.prod = prod;
-    pedido.t = selectorPrecio.value;
-    pedido.metodo = selectorMetodo.value; 
-    
-    const infoP = document.getElementById('infoPedido');
-    if (infoP) {
-        infoP.innerHTML = `📦 <b>PRODUCTO:</b> ${pedido.prod}<br>⏳ <b>TIEMPO:</b> ${pedido.t}<br>💳 <b>MÉTODO:</b> ${pedido.metodo}`;
-    }
-    
-    abrirInterfazPedido(vid);
-}
-
-/**
- * Función estándar para compras.
- */
-function solicitar(prod, id, vid) {
-    const selectorPrecio = document.getElementById(id);
-    
-    if (!selectorPrecio || selectorPrecio.disabled) {
-        alert("Lo sentimos, este producto no está disponible en este momento.");
-        return;
-    }
-
-    pedido.prod = prod;
-    pedido.t = selectorPrecio.value;
-    pedido.metodo = "General / Otro"; 
-    
-    const infoP = document.getElementById('infoPedido');
-    if (infoP) {
-        infoP.innerHTML = `📦 <b>PRODUCTO:</b> ${pedido.prod}<br>⏳ <b>TIEMPO:</b> ${pedido.t}`;
-    }
-    
-    const btnV = document.getElementById('btnVideo');
-    if (btnV) {
-        btnV.onclick = () => {
-            const vT = document.getElementById('vid');
-            if (vT) { 
-                vT.src = vid; 
-                document.getElementById('reproductor').style.display = 'flex';
-                vT.play();
-            }
-        };
-    }
-    
-    abrirInterfazPedido(vid);
-}
-
-function abrirInterfazPedido(vid) {
-    const modal = document.getElementById('miModal');
-    if (modal) modal.style.display = 'flex';
-}
-
-function enviarWhatsApp() {
-    if (!pedido.pais || pedido.pais === "") { 
-        alert("⚠️ Por favor, selecciona primero tu país."); 
-        return; 
-    }
-    const tel = "584243132113";
-    const infoMetodo = pedido.metodo && pedido.metodo !== "General / Otro" ? `%0A💳 *Método de Pago:* ${pedido.metodo}` : "";
-    const msg = `Hola STYLEHACKS! 🚀 Ya realicé mi pago.%0A%0A📦 *Producto:* ${pedido.prod}%0A⏳ *Tiempo:* ${pedido.t}${infoMetodo}%0A🌎 *País:* ${pedido.pais}%0A%0AAdjunto el comprobante de transferencia.`;
-    window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
-}
-
-function irAlCanal() {
-    window.open(LINK_GRUPO, '_blank');
-}
-
-function cerrarModal() {
-    const modal = document.getElementById('miModal');
-    if (modal) modal.style.display = 'none';
-}
-
-function cerrarVid() { 
-    const r = document.getElementById('reproductor'); 
-    const v = document.getElementById('vid');
-    if (v) { v.pause(); v.src = ""; }
-    if (r) r.style.display = 'none'; 
-}
-
-window.onclick = (e) => {
-    const m = document.getElementById('miModal');
-    if (e.target == m) cerrarModal();
+// Base de datos de pagos para los 14 países
+const bancos = {
+    ven: "<b>🇻🇪 VENEZUELA:</b><br>Pago Móvil: 0102 (Venezuela)<br>Cédula: 31.376.662<br>Tlf: 0412-8240604",
+    col: "<b>🇨🇴 COLOMBIA:</b><br>Nequi: 3016043120<br>Bancolombia: 76900007797",
+    per: "<b>🇵🇪 PERÚ:</b><br>Yape / Plin: 954302258",
+    par: "<b>🇵🇾 PARAGUAY:</b><br>Itaú: 300406285 (D. Leiva)<br>Billetera: 0993363424",
+    nic: "<b>🇳🇮 NICARAGUA:</b><br>BAC: 371674409",
+    dom: "<b>🇩🇴 REP. DOMINICANA:</b><br>Popular: 837147719<br>BHD: 34478720012",
+    mex: "<b>🇲🇽 MÉXICO:</b><br>Solicitar datos actuales por Instagram o TikTok.",
+    chi: "<b>🇨🇱 CHILE:</b><br>Solicitar datos actuales por Instagram o TikTok.",
+    ecu: "<b>🇪🇨 ECUADOR:</b><br>Solicitar datos actuales por Instagram o TikTok.",
+    pan: "<b>🇵🇦 PANAMÁ:</b><br>Solicitar datos actuales por Instagram o TikTok.",
+    gua: "<b>🇬🇹 GUATEMALA:</b><br>Solicitar datos actuales por Instagram o TikTok.",
+    hon: "<b>🇭🇳 HONDURAS:</b><br>Solicitar datos actuales por Instagram o TikTok.",
+    sal: "<b>🇸🇻 EL SALVADOR:</b><br>Solicitar datos actuales por Instagram o TikTok.",
+    bol: "<b>🇧🇴 BOLIVIA:</b><br>Solicitar datos actuales por Instagram o TikTok.",
+    otr: "<b>🌐 OTROS MÉTODOS:</b><br>Wally: +584128975265<br>Zinli: chauran2001@gmail.com<br>Binance: Solicitar Pay ID"
 };
+
+// Función para actualizar el texto del banco al seleccionar país
+function actualizarMetodo() {
+    const seleccion = document.getElementById('country-select').value;
+    const visualizador = document.getElementById('method-text');
+    
+    if (seleccion) {
+        visualizador.innerHTML = bancos[seleccion];
+    } else {
+        visualizador.innerHTML = "Selecciona un país para ver los datos bancarios.";
+    }
+}
+
+// Función para generar el pedido y abrir el modal
+function solicitar(producto, idSelect) {
+    const plan = document.getElementById(idSelect).value;
+    const paisSeleccionado = document.getElementById('country-select').value || "MÉTODO NO SELECCIONADO";
+    
+    // Crear el resumen
+    const resumen = `
+        🚀 <b>PRODUCTO:</b> ${producto}<br>
+        ⏳ <b>PLAN:</b> ${plan}<br>
+        🌎 <b>ORIGEN:</b> ${paisSeleccionado.toUpperCase()}
+    `;
+    
+    document.getElementById('summary-text').innerHTML = resumen;
+    document.getElementById('modal-confirm').style.display = 'flex';
+}
+
+// Función para cerrar el modal
+function cerrarModal() {
+    document.getElementById('modal-confirm').style.display = 'none';
+}
+
+// Cerrar modal si se hace clic fuera del contenido
+window.onclick = function(event) {
+    const modal = document.getElementById('modal-confirm');
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
