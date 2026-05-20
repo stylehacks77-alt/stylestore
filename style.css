@@ -25,17 +25,17 @@ Body {
     text-transform: uppercase; 
     margin-top: 20px;
     margin-bottom: 5px;
-    /* Efecto Arcoíris Neón cambiante continuo en el texto del logo */
-    background: linear-gradient(90deg, #00ffcc, #0077ff, #ff0077, #00ffcc);
+    /* Efecto FUEGO cambiante continuo en el texto del logo */
+    background: linear-gradient(90deg, #FF4500, #FFD700, #FF0000, #FF4500);
     background-size: 300% auto;
     -webkit-background-clip: text; 
     -webkit-text-fill-color: transparent;
-    animation: arcoirisTexto 4s linear infinite;
-    filter: drop-shadow(0 0 15px rgba(0, 255, 204, 0.5));
+    animation: arderFuego 3s linear infinite;
+    filter: drop-shadow(0 0 15px rgba(255, 69, 0, 0.5));
 }
 
-/* Animación para el cambio de colores arcoíris continuo */
-@keyframes arcoirisTexto {
+/* Animación para el cambio de colores FUEGO continuo */
+@keyframes arderFuego {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
@@ -109,7 +109,7 @@ Body {
     transform: translateY(-5px);
 }
 
-/* Bordes superiores neón animados que cambian de color fluidamente */
+/* Bordes superiores neón animados */
 .neon-blue { 
     border-top: 6px solid #00ffcc; 
     box-shadow: 0 15px 35px rgba(0, 255, 204, 0.05);
@@ -122,7 +122,7 @@ Body {
     top: -6px; left: 0; right: 0; height: 6px;
     background: linear-gradient(90deg, #00ffcc, #0077ff, #00ffcc);
     background-size: 200% auto;
-    animation: arcoirisTexto 3s linear infinite;
+    animation: arderFuego 3s linear infinite;
     border-radius: 28px 28px 0 0;
 }
 
@@ -138,7 +138,7 @@ Body {
     top: -6px; left: 0; right: 0; height: 6px;
     background: linear-gradient(90deg, #ff0077, #9900ff, #ff0077);
     background-size: 200% auto;
-    animation: arcoirisTexto 3s linear infinite;
+    animation: arderFuego 3s linear infinite;
     border-radius: 28px 28px 0 0;
 }
 
@@ -166,18 +166,18 @@ Body {
     box-shadow: 0 0 8px rgba(46, 204, 113, 0.2);
 }
 
-/* Nombres de los productos con efecto Arcoíris Neón activo y cambiante */
+/* Nombres de los productos con efecto FUEGO */
 .product-title { 
     font-size: 26px; 
     margin: 10px 0; 
     font-weight: 800; 
     letter-spacing: -1px;
-    background: linear-gradient(90deg, #00ffcc, #0077ff, #ff0077, #00ffcc);
+    background: linear-gradient(90deg, #FF4500, #FFD700, #FF0000, #FF4500);
     background-size: 300% auto;
     -webkit-background-clip: text; 
     -webkit-text-fill-color: transparent;
-    animation: arcoirisTexto 4s linear infinite;
-    filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.3));
+    animation: arderFuego 3s linear infinite;
+    filter: drop-shadow(0 0 10px rgba(255, 69, 0, 0.3));
 }
 
 .desc { 
@@ -314,12 +314,12 @@ Body {
 }
 
 /* ==========================================================================
-   ESTILOS NUEVOS: COMPONENTES DE NOTIFICACIONES FLOTANTES (IZQUIERDA)
+   NUEVA FUNCIÓN: NOTIFICACIONES FLOTANTES (IZQUIERDA)
    ========================================================================== */
 .notif-referencia {
     position: fixed;
     bottom: 20px;
-    left: -400px; /* Inicia oculto fuera de la pantalla izquierda */
+    left: -400px;
     background: #06070d;
     border: 1px solid #00ffcc;
     border-left: 5px solid #00ffcc;
@@ -336,7 +336,7 @@ Body {
 }
 
 .notif-referencia.mostrar {
-    left: 20px; /* Posición visible en pantalla */
+    left: 20px;
 }
 
 .notif-header {
@@ -386,13 +386,4 @@ Body {
     color: #ff0077;
     font-weight: bold;
     text-transform: uppercase;
-}
-
-/* CLASE ESPECIAL: TEXTO ARCOIRIS ADAPTADO PARA ELEMENTOS JAVASCRIPT */
-.animate-arcoiris {
-    background: linear-gradient(90deg, #00ffcc, #0077ff, #ff0077, #00ffcc);
-    background-size: 300% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: arcoirisTexto 4s linear infinite;
-}
+    }
