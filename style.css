@@ -1,7 +1,9 @@
-body {
-    background: #050505;
-    background-image: radial-gradient(circle at 2px 2px, rgba(0, 242, 255, 0.05) 1px, transparent 0);
+Body {
+    background: #030303;
+    /* Fondo animado con un degradado neón profundo en movimiento continuo */
+    background-image: radial-gradient(circle at 2px 2px, rgba(0, 255, 204, 0.08) 1px, transparent 0);
     background-size: 30px 30px;
+    animation: moverFondo 20s linear infinite;
     color: white; 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex; 
@@ -11,26 +13,43 @@ body {
     margin: 0;
 }
 
+/* Animación para darle vida al fondo simulando movimiento */
+@keyframes moverFondo {
+    0% { background-position: 0px 0px; }
+    100% { background-position: 30px 60px; }
+}
+
 .logo-stylehacks {
     font-size: 32px; 
     font-weight: 900; 
     text-transform: uppercase; 
     margin-top: 20px;
     margin-bottom: 5px;
-    background: linear-gradient(90deg, #00f2ff, #cc00ff);
+    /* Efecto Arcoíris Neón cambiante continuo en el texto del logo */
+    background: linear-gradient(90deg, #00ffcc, #0077ff, #ff0077, #00ffcc);
+    background-size: 300% auto;
     -webkit-background-clip: text; 
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+    animation: arcoirisTexto 4s linear infinite;
+    filter: drop-shadow(0 0 15px rgba(0, 255, 204, 0.5));
+}
+
+/* Animación para el cambio de colores arcoíris continuo */
+@keyframes arcoirisTexto {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .white-text { -webkit-text-fill-color: white; }
 
 .subtitle { 
-    color: #666; 
+    color: #888; 
     font-size: 10px; 
     letter-spacing: 3px; 
     margin-bottom: 40px; 
     text-transform: uppercase;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
 }
 
 /* Sección de Pagos */
@@ -43,7 +62,7 @@ body {
 #country-select { 
     width: 100%; 
     padding: 16px; 
-    background: #111; 
+    background: #0d0d0d; 
     color: white; 
     border: 1px solid #222; 
     border-radius: 15px; 
@@ -51,17 +70,23 @@ body {
     font-size: 14px;
     outline: none;
     cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 255, 204, 0.1);
+    transition: border-color 0.3s ease;
+}
+
+#country-select:focus {
+    border-color: #00ffcc;
 }
 
 .method-card { 
-    background: #0a0a0a; 
+    background: #070707; 
     padding: 18px; 
     border-radius: 15px; 
     margin-top: 12px; 
-    border-left: 4px solid #00f2ff; 
+    border-left: 4px solid #00ffcc; 
     font-size: 14px; 
     line-height: 1.6; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.7), 0 0 15px rgba(0, 255, 204, 0.05);
 }
 
 /* Cuadrícula de Productos */
@@ -71,27 +96,62 @@ body {
 }
 
 .card { 
-    background: #0f111a; 
+    background: #090a0f; 
     padding: 30px; 
     border-radius: 28px; 
     margin-bottom: 25px; 
     text-align: center; 
-    border: 1px solid #1a1a1a; 
-    transition: transform 0.3s ease;
+    border: 1px solid #161824; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.neon-blue { border-top: 6px solid #00f2ff; box-shadow: 0 15px 35px rgba(0, 242, 255, 0.05); }
-.neon-purple { border-top: 6px solid #cc00ff; box-shadow: 0 15px 35px rgba(204, 0, 255, 0.05); }
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Bordes superiores neón animados que cambian de color fluidamente */
+.neon-blue { 
+    border-top: 6px solid #00ffcc; 
+    box-shadow: 0 15px 35px rgba(0, 255, 204, 0.05);
+    position: relative;
+}
+
+.neon-blue::before {
+    content: '';
+    position: absolute;
+    top: -6px; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, #00ffcc, #0077ff, #00ffcc);
+    background-size: 200% auto;
+    animation: arcoirisTexto 3s linear infinite;
+    border-radius: 28px 28px 0 0;
+}
+
+.neon-purple { 
+    border-top: 6px solid #ff0077; 
+    box-shadow: 0 15px 35px rgba(255, 0, 119, 0.05);
+    position: relative;
+}
+
+.neon-purple::before {
+    content: '';
+    position: absolute;
+    top: -6px; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, #ff0077, #9900ff, #ff0077);
+    background-size: 200% auto;
+    animation: arcoirisTexto 3s linear infinite;
+    border-radius: 28px 28px 0 0;
+}
 
 .card-tag { 
     font-size: 9px; 
     background: #000; 
     padding: 6px 14px; 
     border-radius: 10px; 
-    color: #aaa; 
-    border: 1px solid #222; 
+    color: #00ffcc; 
+    border: 1px solid #00ffcc; 
     text-transform: uppercase;
     letter-spacing: 1px;
+    box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
 }
 
 .sales-tag { 
@@ -103,13 +163,26 @@ body {
     display: inline-block;
     padding: 4px 10px;
     border-radius: 5px;
+    box-shadow: 0 0 8px rgba(46, 204, 113, 0.2);
 }
 
-.product-title { font-size: 26px; margin: 10px 0; font-weight: 800; letter-spacing: -1px; }
+/* Nombres de los productos con efecto Arcoíris Neón activo y cambiante */
+.product-title { 
+    font-size: 26px; 
+    margin: 10px 0; 
+    font-weight: 800; 
+    letter-spacing: -1px;
+    background: linear-gradient(90deg, #00ffcc, #0077ff, #ff0077, #00ffcc);
+    background-size: 300% auto;
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent;
+    animation: arcoirisTexto 4s linear infinite;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.3));
+}
 
 .desc { 
     font-size: 13px; 
-    color: #777; 
+    color: #888; 
     margin-bottom: 25px; 
     line-height: 1.4;
 }
@@ -124,6 +197,12 @@ body {
     margin-bottom: 15px; 
     font-weight: bold; 
     text-align: center;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.price-sel:focus {
+    border-color: #00ffcc;
 }
 
 .btn-buy { 
@@ -137,6 +216,13 @@ body {
     cursor: pointer; 
     font-size: 16px; 
     text-transform: uppercase;
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-buy:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(46, 204, 113, 0.6);
 }
 
 /* Botones y Footer */
@@ -150,11 +236,12 @@ body {
     border-radius: 18px; 
     font-weight: bold; 
     font-size: 14px; 
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
 }
 
 .footer-respaldo { 
     text-align: center; 
-    color: #333; 
+    color: #444; 
     font-size: 11px; 
     margin-top: 50px; 
     padding-bottom: 30px; 
@@ -166,31 +253,34 @@ body {
     display: none; 
     position: fixed; 
     top: 0; left: 0; width: 100%; height: 100%; 
-    background: rgba(0,0,0,0.98); 
+    background: rgba(0,0,0,0.95); 
     z-index: 9999; 
     align-items: center; 
     justify-content: center; 
+    backdrop-filter: blur(5px);
 }
 
 .modal-content { 
-    background: #080808; 
+    background: #050505; 
     padding: 35px; 
     border-radius: 30px; 
     width: 85%; 
     max-width: 350px; 
     text-align: center; 
-    border: 1px solid #1a1a1a; 
+    border: 2px solid #00ffcc; 
+    box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
 }
 
 .summary-box { 
-    background: #111; 
+    background: #0d0d0d; 
     padding: 20px; 
     border-radius: 15px; 
     text-align: left; 
     margin: 20px 0; 
-    border-left: 4px solid #00f2ff; 
+    border-left: 4px solid #00ffcc; 
     font-size: 13px;
     color: #eee;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
 }
 
 .social-item { 
@@ -202,10 +292,15 @@ body {
     color: white; 
     font-weight: bold; 
     font-size: 14px;
+    transition: transform 0.2s;
 }
 
-.tk { background: #000; border: 1px solid #333; }
-.ig { background: linear-gradient(45deg, #f09433, #e1306c, #833ab4); }
+.social-item:hover {
+    transform: scale(1.02);
+}
+
+.tk { background: #000; border: 1px solid #333; box-shadow: 0 4px 10px rgba(255,255,255,0.05); }
+.ig { background: linear-gradient(45deg, #f09433, #e1306c, #833ab4); box-shadow: 0 4px 15px rgba(225, 48, 108, 0.3); }
 
 .btn-cancel { 
     background: none; 
@@ -216,4 +311,88 @@ body {
     margin-top: 20px; 
     text-decoration: underline;
     font-size: 12px;
-    }
+}
+
+/* ==========================================================================
+   ESTILOS NUEVOS: COMPONENTES DE NOTIFICACIONES FLOTANTES (IZQUIERDA)
+   ========================================================================== */
+.notif-referencia {
+    position: fixed;
+    bottom: 20px;
+    left: -400px; /* Inicia oculto fuera de la pantalla izquierda */
+    background: #06070d;
+    border: 1px solid #00ffcc;
+    border-left: 5px solid #00ffcc;
+    border-radius: 20px;
+    padding: 15px;
+    width: 290px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.85), 0 0 15px rgba(0, 255, 204, 0.15);
+    z-index: 100000;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: left 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.notif-referencia.mostrar {
+    left: 20px; /* Posición visible en pantalla */
+}
+
+.notif-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.notif-user {
+    color: #00ffcc;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.notif-verif {
+    color: #2ecc71;
+    background: rgba(46, 204, 113, 0.1);
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.notif-text {
+    color: #ffffff;
+    font-size: 12px;
+    line-height: 1.4;
+    margin: 2px 0;
+    font-weight: 500;
+}
+
+.notif-footer {
+    display: flex;
+    justify-content: space-between;
+    color: #555;
+    font-size: 10px;
+    margin-top: 2px;
+}
+
+.notif-time {
+    font-style: italic;
+}
+
+.notif-tag {
+    color: #ff0077;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* CLASE ESPECIAL: TEXTO ARCOIRIS ADAPTADO PARA ELEMENTOS JAVASCRIPT */
+.animate-arcoiris {
+    background: linear-gradient(90deg, #00ffcc, #0077ff, #ff0077, #00ffcc);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: arcoirisTexto 4s linear infinite;
+}
