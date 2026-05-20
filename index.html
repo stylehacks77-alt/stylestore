@@ -12,14 +12,9 @@
     <div class="logo-stylehacks">STYLEHACKS VIP</div>
     <div class="subtitle">SISTEMA OFICIAL DE VENTAS Y DISTRIBUCIÓN</div>
 
-    <input type="hidden" id="main-country" value="">
-    <input type="hidden" id="modal-country" value="">
-    <div id="main-data" style="display: none;"></div>
-    <div id="modal-data" style="display: none;"></div>
-
     <div class="payment-section">
         <label for="country-select" style="display:none;">Selecciona tu país</label>
-        <select id="country-select" onchange="actualizarMetodo(); sincronizar(this.options[this.selectedIndex].text)">
+        <select id="country-select" onchange="actualizarMetodo()">
             <option value="" disabled selected>-- SELECCIONE SU PAÍS DE ORIGEN --</option>
             <option value="ven">🇻🇪 Venezuela</option>
             <option value="col">🇨🇴 Colombia</option>
@@ -157,6 +152,10 @@
         © 2026 STYLEHACKS VIP. Todos los derechos reservados.<br>
         Plataforma protegida con encriptación SSL de alta seguridad.
     </div>
+
+    <a href="https://chat.whatsapp.com/GgLGErIQynBDXKKiFFrE4d" target="_blank" class="float-wa-btn">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <script src="script.js"></script>
 </body>
