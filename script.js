@@ -59,7 +59,7 @@ window.onclick = function(event) {
 }
 
 /* ==========================================================================
-   3. SISTEMA DE REDIRECCIONES EN VIVO (CON SELECTOR DE APP)
+   3. SISTEMA DE REDIRECCIONES EN VIVO
    ========================================================================== */
 function verReferencias() {
     window.open("https://whatsapp.com/channel/0029VbBnYK9CHDydoBe7st2U", "_blank");
@@ -67,19 +67,12 @@ function verReferencias() {
 
 function enviarWhatsApp() {
     const info = document.getElementById('summary-text').innerText;
+    // Número actualizado correctamente
     const numero = "584243132113"; 
     const mensaje = encodeURIComponent("¡Hola! Quiero notificar un pago de mi pedido:\n\n" + info);
     
-    // Protocolo intent para forzar selector en Android y respaldo web automático
-    const intentUrl = "intent://send/?phone=" + numero + "&text=" + mensaje + "#Intent;scheme=smsto;package=com.whatsapp;end";
     const webUrl = "https://wa.me/" + numero + "?text=" + mensaje;
-    
-    window.location.href = intentUrl;
-    
-    // Respaldo de seguridad si el intent falla
-    setTimeout(function() {
-        window.open(webUrl, '_blank');
-    }, 500);
+    window.open(webUrl, '_blank');
 }
 
 /* ==========================================================================
