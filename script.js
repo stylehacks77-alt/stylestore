@@ -1,23 +1,5 @@
 /* ==========================================================================
-   CONFIGURACIÓN FIREBASE (AGREGADA)
-   ========================================================================== */
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "TU_API_KEY_AQUI",
-  authDomain: "stylehacks-b3bfa.firebaseapp.com",
-  projectId: "stylehacks-b3bfa",
-  storageBucket: "stylehacks-b3bfa.appspot.com",
-  messagingSenderId: "678073313197",
-  appId: "1:678073313197:web:25ab03aec711a7f6"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-/* ==========================================================================
-   1. BASE DE DATOS DE PAÍSES Y MÉTODOS DE PAGO
+   1. BASE DE DATOS DE PAÍSES Y MÉTODOS DE PAGO (SOLO NOMBRES SIN DATOS PRIVADOS)
    ========================================================================== */
 const bancos = {
     ven: "<b>🇻🇪 VENEZUELA:</b><br>• Método disponible: Pago Móvil (Banco de Venezuela 0102)",
@@ -40,6 +22,8 @@ const bancos = {
 /* ==========================================================================
    2. CONTROLADORES DE INTERFAZ Y PASARELA DE NAVEGACIÓN
    ========================================================================== */
+
+// Actualiza el contenedor dinámico al cambiar de país en el selector principal
 function actualizarMetodo() {
     const seleccion = document.getElementById('country-select').value;
     const visualizador = document.getElementById('method-text');
@@ -51,6 +35,7 @@ function actualizarMetodo() {
     }
 }
 
+// Procesa el plan elegido y despliega el Modal de Confirmación en pantalla
 function solicitar(producto, idSelect) {
     const plan = document.getElementById(idSelect).value;
     const pais = document.getElementById('country-select').value || "MÉTODO NO SELECCIONADO";
@@ -65,10 +50,12 @@ function solicitar(producto, idSelect) {
     document.getElementById('modal-confirm').style.display = 'flex';
 }
 
+// Cierra manualmente el Modal de Confirmación
 function cerrarModal() {
     document.getElementById('modal-confirm').style.display = 'none';
 }
 
+// Cierra el modal de forma intuitiva si el cliente pulsa fuera de la caja de contenido
 window.onclick = function(event) {
     const modal = document.getElementById('modal-confirm');
     if (event.target == modal) {
@@ -79,25 +66,35 @@ window.onclick = function(event) {
 /* ==========================================================================
    3. SISTEMA DE REDIRECCIONES EN VIVO (WHATSAPP TRADICIONAL)
    ========================================================================== */
+
+// Abre de forma nativa tus referencias en el WhatsApp tradicional (Sin intermediarios de Business)
 function verReferencias() {
     window.open("https://whatsapp.com/channel/0029VbBnYK9CHDydoBe7st2U", "_blank");
 }
 
+// Genera un mensaje estructurado y redirige al chat de tu WhatsApp Personal para validar el pago
 function enviarWhatsApp() {
     const info = document.getElementById('summary-text').innerText;
     window.open("https://wa.me/584243132113?text=" + encodeURIComponent("¡Hola! Quiero notificar un pago de mi pedido:\n\n" + info), "_blank");
 }
 
 /* ==========================================================================
-   4. SISTEMA DE BLOQUEO OBLIGATORIO DE GRUPO
+   4. SISTEMA DE BLOQUEO OBLIGATORIO DE GRUPO (MÁXIMO 2 VECES POR PERSONA)
    ========================================================================== */
 function verificarBloqueoGrupo() {
+    // Lee la memoria local del navegador del cliente
     let visitas = parseInt(localStorage.getItem("visitas_grupo")) || 0;
-    if (visitas >= 2) return; 
     
+    // Si ya completó sus dos ingresos permitidos, el script se detiene y no interrumpe más
+    if (visitas >= 2) {
+        return; 
+    }
+    
+    // Si está dentro del rango, suma el contador y actualiza su registro local
     visitas++;
     localStorage.setItem("visitas_grupo", visitas);
     
+    // Inyecta el modal de bloqueo flotante con diseño integrado en pantalla
     let alertaDiv = document.createElement("div");
     alertaDiv.id = "bloqueo-grupo-modal";
     alertaDiv.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(3,3,3,0.98); z-index:200000; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(10px);";
@@ -106,7 +103,7 @@ function verificarBloqueoGrupo() {
         <div class="modal-content" style="border: 2px solid #00ffcc; box-shadow: 0 0 30px rgba(0, 255, 204, 0.4); max-width: 320px; padding: 30px; text-align: center;">
             <h2 class="product-title animate-arcoiris" style="font-size: 24px; margin-bottom: 15px; color:#00ffcc;">⚠️ AVISO IMPORTANTE</h2>
             <p style="color: #eee; font-size: 14px; line-height: 1.6; margin-bottom: 25px;">
-                Para poder seguir navegando en la plataforma y ver los métodos activos, es obligatorio que te unas a nuestro grupo oficial.
+                Para poder seguir navegando en la plataforma y ver los métodos activos, es obligatorio que te unas a nuestro grupo oficial de referencias y soporte de WhatsApp.
             </p>
             <a href="https://chat.whatsapp.com/GgLGErIQynBDXKKiFFrE4d" target="_blank" id="btn-unirse-obligatorio" class="btn-buy" style="background: linear-gradient(90deg, #00ffcc, #0077ff); color: black; text-decoration: none; display: inline-block; width: 85%; font-weight: 900; padding: 15px 0; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,255,204,0.3);">
                 🚀 UNIRSE AL GRUPO AQUÍ
@@ -114,17 +111,21 @@ function verificarBloqueoGrupo() {
         </div>
     `;
     document.body.appendChild(alertaDiv);
+    
+    // Desactiva el aviso visual al pulsar la acción de redirección
     document.getElementById("btn-unirse-obligatorio").addEventListener("click", function() {
         document.body.removeChild(alertaDiv);
     });
 }
 
 /* ==========================================================================
-   5. GENERADOR DINÁMICO DE NOTIFICACIONES DE COMPRA
+   5. GENERADOR DINÁMICO DE NOTIFICACIONES DE COMPRA (LADO IZQUIERDO)
    ========================================================================== */
 document.addEventListener("DOMContentLoaded", function() {
+    // Comprueba el estado de visitas del cliente de forma inmediata al entrar
     verificarBloqueoGrupo();
 
+    // Genera el nodo HTML para las alertas de opiniones/referencias flotantes
     let notifDiv = document.createElement("div");
     notifDiv.id = "notif-flotante";
     notifDiv.className = "notif-referencia";
@@ -141,11 +142,30 @@ document.addEventListener("DOMContentLoaded", function() {
     `;
     document.body.appendChild(notifDiv);
 
-    const nombresReales = ["José", "Carlos", "Mateo", "Luis", "Alejandro", "Santiago", "Manuel", "Andrés", "Javier", "David"];
+    // Banco de datos para las simulaciones automáticas en vivo
+    const nombresReales = [
+        "José", "Carlos", "Mateo", "Luis", "Alejandro", "Santiago", "Manuel", "Andrés", "Javier", "David",
+        "Diego", "Daniel", "Fernando", "Gabriel", "Marcos", "Kevin", "Brayan", "Ángel", "Juan", "Pedro",
+        "Sebastián", "Samuel", "Anthony", "Adrián", "Jesús", "Ezequiel", "Isaac", "Mathías", "Nicolás", "Alan",
+        "Axel", "Damián", "Esteban", "Lautaro", "Tomás", "Benjamín", "Rodrigo", "Cristian", "Mauricio", "Álvaro",
+        "Leonardo", "Hugo", "Iker", "Thiago", "Aaron", "Gael", "Alex", "Sandro", "Omar", "Yahir", "Julian"
+    ];
+    
     const productos = ["DRIP CLIENTE", "CUBAN MODS", "HG CHEATS", "PATO TEAM", "CUBAN MODS DELUXE", "FLORITE IOS"];
     const tiempos = ["Hace un momento", "Hace 1 min", "Hace 2 min", "Hace 3 min", "Hace 5 min"];
-    const opinionesLegales = ["ha dicho que la página es 100% recomendable.", "confirmó entrega inmediata.", "comentó que es la mejor página.", "recomienda el sitio al 100%."];
 
+    const opinionesLegales = [
+        "ha dicho que la página es 100% recomendable, 100% legal. Me entregaron mi Case súper rápido. Muchas gracias confiado.",
+        "confirmó entrega inmediata. Compras 100% seguras y legales sin demoras. Excelente soporte técnico.",
+        "comentó que es la mejor página de distribución, súper confiable, entrega al instante y todo legal. Recomendado.",
+        "dejó su referencia: Todo el proceso fue legal y transparente, me entregaron mi servicio rápido y sin problemas.",
+        "recomienda el sitio al 100%. Cero estafas, todo es completamente legal y la atención por WhatsApp es súper rápida.",
+        "escribió: Súper confiado con la compra, la instalación fue guiada y el sistema es 100% real y legal. ¡Gracias!",
+        "reportó: Segunda vez que compro aquí y la velocidad de entrega sigue siendo flash. Negocio serio y legal.",
+        "mencionó: Excelente atención, todo legal y verificado. Mi acceso funcionó de inmediato sin errores. Muy confiable."
+    ];
+
+    // Lógica interna cíclica e intervalos dinámicos para lanzar las alertas en pantalla
     function generarNotificacionAleatoria() {
         const nombreAleatorio = nombresReales[Math.floor(Math.random() * nombresReales.length)];
         const opinionAleatoria = opinionesLegales[Math.floor(Math.random() * opinionesLegales.length)];
@@ -158,25 +178,15 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("notif-tag").innerText = productoAleatorio;
 
         notifDiv.classList.add("mostrar");
+
+        // Oculta la notificación tras 5.5 segundos y programa el siguiente disparo aleatorio
         setTimeout(() => {
             notifDiv.classList.remove("mostrar");
-            const proximoIntervalo = Math.floor(Math.random() * 5000) + 15000;
+            const proximoIntervalo = Math.floor(Math.random() * (20000 - 15000 + 1)) + 15000;
             setTimeout(generarNotificacionAleatoria, proximoIntervalo);
         }, 5500); 
     }
+
+    // Arranca la secuencia de notificaciones 4 segundos después de que cargue el sitio
     setTimeout(generarNotificacionAleatoria, 4000);
 });
-
-/* ==========================================================================
-   6. LÓGICA DE COMPRA Y ENTREGA (AGREGADA)
-   ========================================================================== */
-async function procesarCompra(usuarioId, precioProducto) {
-    const usuarioRef = doc(db, "usuarios", usuarioId);
-    const docSnap = await getDoc(usuarioRef);
-    if (docSnap.exists() && docSnap.data().saldo >= precioProducto) {
-        await updateDoc(usuarioRef, { saldo: docSnap.data().saldo - precioProducto });
-        alert("¡Compra exitosa! Código entregado.");
-    } else {
-        alert("Saldo insuficiente o usuario no registrado.");
-    }
-}
