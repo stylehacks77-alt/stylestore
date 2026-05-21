@@ -1,24 +1,5 @@
 /* ==========================================================================
-   1. CONFIGURACIÓN DE FIREBASE (Añadido para conectar tu base de datos)
-   ========================================================================== */
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
-// RECUERDA: Estos son tus datos. Asegúrate de que coincidan con los de tu consola Firebase.
-const firebaseConfig = {
-  apiKey: "TU_API_KEY_AQUI",
-  authDomain: "stylehacks-b3bfa.firebaseapp.com",
-  projectId: "stylehacks-b3bfa",
-  storageBucket: "stylehacks-b3bfa.appspot.com",
-  messagingSenderId: "678073313197",
-  appId: "1:678073313197:web:25ab03aec711a7f6"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-/* ==========================================================================
-   2. BASE DE DATOS DE PAÍSES Y MÉTODOS DE PAGO
+   1. BASE DE DATOS DE PAÍSES Y MÉTODOS DE PAGO
    ========================================================================== */
 const bancos = {
     ven: "<b>🇻🇪 VENEZUELA:</b><br>• Método disponible: Pago Móvil (Banco de Venezuela 0102)",
@@ -39,11 +20,12 @@ const bancos = {
 };
 
 /* ==========================================================================
-   3. CONTROLADORES DE INTERFAZ Y PASARELA DE NAVEGACIÓN
+   2. CONTROLADORES DE INTERFAZ Y PASARELA DE NAVEGACIÓN
    ========================================================================== */
 function actualizarMetodo() {
     const seleccion = document.getElementById('country-select').value;
     const visualizador = document.getElementById('method-text');
+    
     if (seleccion) {
         visualizador.innerHTML = bancos[seleccion];
     } else {
@@ -54,7 +36,13 @@ function actualizarMetodo() {
 function solicitar(producto, idSelect) {
     const plan = document.getElementById(idSelect).value;
     const pais = document.getElementById('country-select').value || "MÉTODO NO SELECCIONADO";
-    const resumen = `🚀 <b>PRODUCTO:</b> ${producto}<br>⏳ <b>PLAN:</b> ${plan}<br>🌎 <b>ORIGEN:</b> ${pais.toUpperCase()}`;
+    
+    const resumen = `
+        🚀 <b>PRODUCTO:</b> ${producto}<br>
+        ⏳ <b>PLAN:</b> ${plan}<br>
+        🌎 <b>ORIGEN:</b> ${pais.toUpperCase()}
+    `;
+    
     document.getElementById('summary-text').innerHTML = resumen;
     document.getElementById('modal-confirm').style.display = 'flex';
 }
@@ -65,11 +53,13 @@ function cerrarModal() {
 
 window.onclick = function(event) {
     const modal = document.getElementById('modal-confirm');
-    if (event.target == modal) { modal.style.display = "none"; }
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
 }
 
 /* ==========================================================================
-   4. SISTEMA DE REDIRECCIONES EN VIVO
+   3. SISTEMA DE REDIRECCIONES EN VIVO (CON SELECTOR DE APP)
    ========================================================================== */
 function verReferencias() {
     window.open("https://whatsapp.com/channel/0029VbBnYK9CHDydoBe7st2U", "_blank");
@@ -77,58 +67,59 @@ function verReferencias() {
 
 function enviarWhatsApp() {
     const info = document.getElementById('summary-text').innerText;
-    window.open("https://wa.me/584243132113?text=" + encodeURIComponent("¡Hola! Quiero notificar un pago de mi pedido:\n\n" + info), "_blank");
+    const numero = "584243132113"; 
+    const mensaje = encodeURIComponent("¡Hola! Quiero notificar un pago de mi pedido:\n\n" + info);
+    
+    // Protocolo intent para forzar selector en Android y respaldo web automático
+    const intentUrl = "intent://send/?phone=" + numero + "&text=" + mensaje + "#Intent;scheme=smsto;package=com.whatsapp;end";
+    const webUrl = "https://wa.me/" + numero + "?text=" + mensaje;
+    
+    window.location.href = intentUrl;
+    
+    // Respaldo de seguridad si el intent falla
+    setTimeout(function() {
+        window.open(webUrl, '_blank');
+    }, 500);
 }
 
 /* ==========================================================================
-   5. SISTEMA DE BLOQUEO OBLIGATORIO DE GRUPO
+   4. SISTEMA DE BLOQUEO OBLIGATORIO DE GRUPO
    ========================================================================== */
 function verificarBloqueoGrupo() {
     let visitas = parseInt(localStorage.getItem("visitas_grupo")) || 0;
     if (visitas >= 2) return; 
+    
     visitas++;
     localStorage.setItem("visitas_grupo", visitas);
     
     let alertaDiv = document.createElement("div");
     alertaDiv.id = "bloqueo-grupo-modal";
     alertaDiv.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(3,3,3,0.98); z-index:200000; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(10px);";
+    
     alertaDiv.innerHTML = `
         <div class="modal-content" style="border: 2px solid #00ffcc; box-shadow: 0 0 30px rgba(0, 255, 204, 0.4); max-width: 320px; padding: 30px; text-align: center;">
             <h2 class="product-title animate-arcoiris" style="font-size: 24px; margin-bottom: 15px; color:#00ffcc;">⚠️ AVISO IMPORTANTE</h2>
-            <p style="color: #eee; font-size: 14px; line-height: 1.6; margin-bottom: 25px;">Para poder seguir navegando, es obligatorio unirse al grupo oficial.</p>
-            <a href="https://chat.whatsapp.com/GgLGErIQynBDXKKiFFrE4d" target="_blank" id="btn-unirse-obligatorio" class="btn-buy" style="background: linear-gradient(90deg, #00ffcc, #0077ff); color: black; text-decoration: none; display: inline-block; width: 85%; font-weight: 900; padding: 15px 0; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,255,204,0.3);">🚀 UNIRSE AL GRUPO AQUÍ</a>
+            <p style="color: #eee; font-size: 14px; line-height: 1.6; margin-bottom: 25px;">
+                Para poder seguir navegando en la plataforma y ver los métodos activos, es obligatorio que te unas a nuestro grupo oficial de referencias y soporte de WhatsApp.
+            </p>
+            <a href="https://chat.whatsapp.com/GgLGErIQynBDXKKiFFrE4d" target="_blank" id="btn-unirse-obligatorio" class="btn-buy" style="background: linear-gradient(90deg, #00ffcc, #0077ff); color: black; text-decoration: none; display: inline-block; width: 85%; font-weight: 900; padding: 15px 0; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,255,204,0.3);">
+                🚀 UNIRSE AL GRUPO AQUÍ
+            </a>
         </div>
     `;
     document.body.appendChild(alertaDiv);
+    
     document.getElementById("btn-unirse-obligatorio").addEventListener("click", function() {
         document.body.removeChild(alertaDiv);
     });
 }
 
 /* ==========================================================================
-   6. LÓGICA DE COMPRA (FIREBASE)
-   ========================================================================== */
-async function procesarCompra(usuarioId, precioProducto) {
-    try {
-        const usuarioRef = doc(db, "usuarios", usuarioId);
-        const docSnap = await getDoc(usuarioRef);
-        if (docSnap.exists() && docSnap.data().saldo >= precioProducto) {
-            await updateDoc(usuarioRef, { saldo: docSnap.data().saldo - precioProducto });
-            alert("¡Compra exitosa! Código entregado.");
-        } else {
-            alert("Saldo insuficiente o usuario no encontrado.");
-        }
-    } catch (error) {
-        console.error("Error al procesar compra:", error);
-    }
-}
-
-/* ==========================================================================
-   7. GENERADOR DINÁMICO DE NOTIFICACIONES
+   5. GENERADOR DINÁMICO DE NOTIFICACIONES DE COMPRA
    ========================================================================== */
 document.addEventListener("DOMContentLoaded", function() {
     verificarBloqueoGrupo();
-    
+
     let notifDiv = document.createElement("div");
     notifDiv.id = "notif-flotante";
     notifDiv.className = "notif-referencia";
@@ -145,20 +136,39 @@ document.addEventListener("DOMContentLoaded", function() {
     `;
     document.body.appendChild(notifDiv);
 
-    const nombresReales = ["José", "Carlos", "Mateo", "Luis", "Alejandro", "Santiago", "Manuel", "Andrés"];
-    const productos = ["DRIP CLIENTE", "CUBAN MODS", "HG CHEATS", "PATO TEAM"];
-    const tiempos = ["Hace un momento", "Hace 1 min", "Hace 2 min"];
-    const opiniones = ["ha dicho que la página es 100% recomendable.", "confirmó entrega inmediata.", "comentó que es la mejor página."];
+    const nombresReales = ["José", "Carlos", "Mateo", "Luis", "Alejandro", "Santiago", "Manuel", "Andrés", "Javier", "David"];
+    const productos = ["DRIP CLIENTE", "CUBAN MODS", "HG CHEATS", "PATO TEAM", "CUBAN MODS DELUXE", "FLORITE IOS"];
+    const tiempos = ["Hace un momento", "Hace 1 min", "Hace 2 min", "Hace 3 min", "Hace 5 min"];
+    const opinionesLegales = [
+        "ha dicho que la página es 100% recomendable, 100% legal.",
+        "confirmó entrega inmediata. Compras 100% seguras.",
+        "comentó que es la mejor página, entrega al instante.",
+        "dejó su referencia: Todo el proceso fue legal y transparente.",
+        "recomienda el sitio al 100%. Cero estafas, todo legal.",
+        "escribió: Súper confiado, la instalación fue guiada.",
+        "reportó: Segunda vez que compro aquí, entrega flash.",
+        "mencionó: Excelente atención, todo legal y verificado."
+    ];
 
     function generarNotificacionAleatoria() {
-        document.getElementById("notif-user").innerText = nombresReales[Math.floor(Math.random() * nombresReales.length)];
-        document.getElementById("notif-text").innerText = opiniones[Math.floor(Math.random() * opiniones.length)];
-        document.getElementById("notif-tag").innerText = productos[Math.floor(Math.random() * productos.length)];
+        const nombreAleatorio = nombresReales[Math.floor(Math.random() * nombresReales.length)];
+        const opinionAleatoria = opinionesLegales[Math.floor(Math.random() * opinionesLegales.length)];
+        const productoAleatorio = productos[Math.floor(Math.random() * productos.length)];
+        const tiempoAleatorio = tiempos[Math.floor(Math.random() * tiempos.length)];
+
+        document.getElementById("notif-user").innerText = nombreAleatorio;
+        document.getElementById("notif-text").innerText = `${nombreAleatorio} ${opinionAleatoria}`;
+        document.getElementById("notif-time").innerText = tiempoAleatorio;
+        document.getElementById("notif-tag").innerText = productoAleatorio;
+
         notifDiv.classList.add("mostrar");
+
         setTimeout(() => {
             notifDiv.classList.remove("mostrar");
-            setTimeout(generarNotificacionAleatoria, 15000);
+            const proximoIntervalo = Math.floor(Math.random() * (20000 - 15000 + 1)) + 15000;
+            setTimeout(generarNotificacionAleatoria, proximoIntervalo);
         }, 5500); 
     }
+
     setTimeout(generarNotificacionAleatoria, 4000);
 });
