@@ -25,37 +25,23 @@ const bancos = {
 function actualizarMetodo() {
     const seleccion = document.getElementById('country-select').value;
     const visualizador = document.getElementById('method-text');
-    
-    if (seleccion) {
-        visualizador.innerHTML = bancos[seleccion];
-    } else {
-        visualizador.innerHTML = "Selecciona un país para ver los datos bancarios.";
-    }
+    if (seleccion) visualizador.innerHTML = bancos[seleccion];
+    else visualizador.innerHTML = "Selecciona un país para ver los datos bancarios.";
 }
 
 function solicitar(producto, idSelect) {
     const plan = document.getElementById(idSelect).value;
     const pais = document.getElementById('country-select').value || "MÉTODO NO SELECCIONADO";
-    
-    const resumen = `
-        🚀 <b>PRODUCTO:</b> ${producto}<br>
-        ⏳ <b>PLAN:</b> ${plan}<br>
-        🌎 <b>ORIGEN:</b> ${pais.toUpperCase()}
-    `;
-    
+    const resumen = `🚀 <b>PRODUCTO:</b> ${producto}<br>⏳ <b>PLAN:</b> ${plan}<br>🌎 <b>ORIGEN:</b> ${pais.toUpperCase()}`;
     document.getElementById('summary-text').innerHTML = resumen;
     document.getElementById('modal-confirm').style.display = 'flex';
 }
 
-function cerrarModal() {
-    document.getElementById('modal-confirm').style.display = 'none';
-}
+function cerrarModal() { document.getElementById('modal-confirm').style.display = 'none'; }
 
 window.onclick = function(event) {
     const modal = document.getElementById('modal-confirm');
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
+    if (event.target == modal) modal.style.display = "none";
 }
 
 /* ==========================================================================
@@ -69,7 +55,6 @@ function enviarWhatsApp() {
     const info = document.getElementById('summary-text').innerText;
     const numero = "584243132113"; 
     const mensaje = encodeURIComponent("¡Hola! Quiero notificar un pago de mi pedido:\n\n" + info);
-    
     const webUrl = "https://wa.me/" + numero + "?text=" + mensaje;
     window.open(webUrl, '_blank');
 }
@@ -80,34 +65,25 @@ function enviarWhatsApp() {
 function verificarBloqueoGrupo() {
     let visitas = parseInt(localStorage.getItem("visitas_grupo")) || 0;
     if (visitas >= 2) return; 
-    
     visitas++;
     localStorage.setItem("visitas_grupo", visitas);
     
     let alertaDiv = document.createElement("div");
     alertaDiv.id = "bloqueo-grupo-modal";
     alertaDiv.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(3,3,3,0.98); z-index:200000; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(10px);";
-    
     alertaDiv.innerHTML = `
         <div class="modal-content" style="border: 2px solid #00ffcc; box-shadow: 0 0 30px rgba(0, 255, 204, 0.4); max-width: 320px; padding: 30px; text-align: center;">
-            <h2 class="product-title animate-arcoiris" style="font-size: 24px; margin-bottom: 15px; color:#00ffcc;">⚠️ AVISO IMPORTANTE</h2>
-            <p style="color: #eee; font-size: 14px; line-height: 1.6; margin-bottom: 25px;">
-                Para poder seguir navegando en la plataforma y ver los métodos activos, es obligatorio que te unas a nuestro grupo oficial de referencias y soporte de WhatsApp.
-            </p>
-            <a href="https://chat.whatsapp.com/GgLGErIQynBDXKKiFFrE4d" target="_blank" id="btn-unirse-obligatorio" class="btn-buy" style="background: linear-gradient(90deg, #00ffcc, #0077ff); color: black; text-decoration: none; display: inline-block; width: 85%; font-weight: 900; padding: 15px 0; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,255,204,0.3);">
-                🚀 UNIRSE AL GRUPO AQUÍ
-            </a>
+            <h2 class="product-title" style="font-size: 24px; margin-bottom: 15px; color:#00ffcc;">⚠️ AVISO IMPORTANTE</h2>
+            <p style="color: #eee; font-size: 14px; line-height: 1.6; margin-bottom: 25px;">Para poder seguir navegando en la plataforma y ver los métodos activos, es obligatorio que te unas a nuestro grupo oficial de referencias y soporte de WhatsApp.</p>
+            <a href="https://chat.whatsapp.com/GgLGErIQynBDXKKiFFrE4d" target="_blank" id="btn-unirse-obligatorio" class="btn-buy" style="background: linear-gradient(90deg, #00ffcc, #0077ff); color: black; text-decoration: none; display: inline-block; width: 85%; font-weight: 900; padding: 15px 0; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,255,204,0.3);">🚀 UNIRSE AL GRUPO AQUÍ</a>
         </div>
     `;
     document.body.appendChild(alertaDiv);
-    
-    document.getElementById("btn-unirse-obligatorio").addEventListener("click", function() {
-        document.body.removeChild(alertaDiv);
-    });
+    document.getElementById("btn-unirse-obligatorio").addEventListener("click", () => document.body.removeChild(alertaDiv));
 }
 
 /* ==========================================================================
-   5. GENERADOR DINÁMICO DE NOTIFICACIONES DE COMPRA
+   5. GENERADOR DINÁMICO DE NOTIFICACIONES (400+ COMBINACIONES)
    ========================================================================== */
 document.addEventListener("DOMContentLoaded", function() {
     verificarBloqueoGrupo();
@@ -116,52 +92,30 @@ document.addEventListener("DOMContentLoaded", function() {
     notifDiv.id = "notif-flotante";
     notifDiv.className = "notif-referencia";
     notifDiv.innerHTML = `
-        <div class="notif-header">
-            <span class="notif-user" id="notif-user">@Usuario</span>
-            <span class="notif-verif">✓ 100% LEGAL</span>
-        </div>
-        <p class="notif-text" id="notif-text">La página es 100% recomendable.</p>
-        <div class="notif-footer">
-            <span class="notif-time" id="notif-time">Hace un momento</span>
-            <span class="notif-tag" id="notif-tag">DRIP CLIENTE</span>
-        </div>
+        <div class="notif-header"><span class="notif-user" id="notif-user"></span><span class="notif-verif">✓ 100% LEGAL</span></div>
+        <p class="notif-text" id="notif-text"></p>
+        <div class="notif-footer"><span class="notif-time" id="notif-time">Hace un momento</span><span class="notif-tag" id="notif-tag"></span></div>
     `;
     document.body.appendChild(notifDiv);
 
-    const nombresReales = ["José", "Carlos", "Mateo", "Luis", "Alejandro", "Santiago", "Manuel", "Andrés", "Javier", "David"];
+    // Más de 400 combinaciones posibles:
+    const nombres = ["José", "Carlos", "Mateo", "Luis", "Alejandro", "Santiago", "Manuel", "Andrés", "Javier", "David", "Diego", "Daniel", "Fernando", "Gabriel", "Marcos", "Kevin", "Brayan", "Ángel", "Juan", "Pedro", "Sebastián", "Samuel", "Anthony", "Adrián", "Jesús", "Ezequiel", "Isaac", "Mathías", "Nicolás", "Alan", "Axel", "Damián", "Esteban", "Lautaro", "Tomás", "Benjamín", "Rodrigo", "Cristian", "Mauricio", "Álvaro", "Leonardo", "Hugo", "Iker", "Thiago", "Aaron", "Gael", "Alex", "Sandro", "Omar", "Yahir", "Julian", "Valentino", "Ignacio", "Facundo", "Santino", "Bautista", "Joaquín", "Felipe", "Bruno", "Vicente", "Emilio", "César", "Iván", "Héctor", "Raúl", "Ricardo", "Víctor", "Jorge", "Francisco", "Alberto", "Arturo", "Enrique", "Eduardo", "Gerardo", "Armando", "Alfredo", "Félix", "Ernesto", "Gustavo", "Ramiro", "Agustín", "Pablo", "Hernán", "Mariano", "Federico", "Nicolás", "Lucas", "Franco", "Federico", "Gonzalo", "Tomás", "Matías", "Juan", "Pedro", "Jorge", "Carlos", "Luis", "José", "Manuel", "Antonio", "Brayan", "Kevin", "Jefferson", "Yohandry", "Jean", "Jhon", "Deyvis", "Jhoan", "Darwin", "Elvis", "Junior", "Anderson", "Edixon", "Yorman", "Jhonny", "Alexander", "Christopher", "Jhonatan", "Deiker", "Yeferson", "Yoel", "Jhon", "Douglas", "Ronal", "Edgar", "Franklin", "Richard", "Jhon", "Wilmer", "Yosue", "Jhon", "Keiner", "Jorvi", "Jhon", "Jonnathan", "Jhon", "Jose", "Jhon", "Gabriel", "Jhon", "Miguel"];
     const productos = ["DRIP CLIENTE", "CUBAN MODS", "HG CHEATS", "PATO TEAM", "CUBAN MODS DELUXE", "FLORITE IOS"];
-    const tiempos = ["Hace un momento", "Hace 1 min", "Hace 2 min", "Hace 3 min", "Hace 5 min"];
-    const opinionesLegales = [
-        "ha dicho que la página es 100% recomendable, 100% legal.",
-        "confirmó entrega inmediata. Compras 100% seguras.",
-        "comentó que es la mejor página, entrega al instante.",
-        "dejó su referencia: Todo el proceso fue legal y transparente.",
-        "recomienda el sitio al 100%. Cero estafas, todo legal.",
-        "escribió: Súper confiado, la instalación fue guiada.",
-        "reportó: Segunda vez que compro aquí, entrega flash.",
-        "mencionó: Excelente atención, todo legal y verificado."
-    ];
+    const opiniones = ["recomendó la página al 100%.", "confirmó entrega inmediata.", "comentó que es la mejor página.", "dejó su referencia: Todo legal.", "escribió: 100% confiable.", "reportó: Entrega instantánea.", "dejó: Cero estafas.", "confirmó: Instalación guiada."];
 
-    function generarNotificacionAleatoria() {
-        const nombreAleatorio = nombresReales[Math.floor(Math.random() * nombresReales.length)];
-        const opinionAleatoria = opinionesLegales[Math.floor(Math.random() * opinionesLegales.length)];
-        const productoAleatorio = productos[Math.floor(Math.random() * productos.length)];
-        const tiempoAleatorio = tiempos[Math.floor(Math.random() * tiempos.length)];
-
-        document.getElementById("notif-user").innerText = nombreAleatorio;
-        document.getElementById("notif-text").innerText = `${nombreAleatorio} ${opinionAleatoria}`;
-        document.getElementById("notif-time").innerText = tiempoAleatorio;
-        document.getElementById("notif-tag").innerText = productoAleatorio;
-
+    function generar() {
+        document.getElementById("notif-user").innerText = nombres[Math.floor(Math.random() * nombres.length)];
+        document.getElementById("notif-text").innerText = opiniones[Math.floor(Math.random() * opiniones.length)];
+        document.getElementById("notif-tag").innerText = productos[Math.floor(Math.random() * productos.length)];
         notifDiv.classList.add("mostrar");
 
         setTimeout(() => {
             notifDiv.classList.remove("mostrar");
-            // Se ajustó aquí: el tiempo de espera ahora es entre 15000ms y 20000ms (15 a 20 segundos)
-            const proximoIntervalo = Math.floor(Math.random() * (20000 - 15000 + 1)) + 15000;
-            setTimeout(generarNotificacionAleatoria, proximoIntervalo);
-        }, 5500); 
+            // Espera exacta de 15 a 20 segundos
+            const espera = Math.floor(Math.random() * (20000 - 15000 + 1)) + 15000;
+            setTimeout(generar, espera);
+        }, 5000); 
     }
-
-    setTimeout(generarNotificacionAleatoria, 4000);
+    setTimeout(generar, 3000);
 });
+       
