@@ -67,7 +67,6 @@ function verReferencias() {
 
 function enviarWhatsApp() {
     const info = document.getElementById('summary-text').innerText;
-    // Número actualizado correctamente
     const numero = "584243132113"; 
     const mensaje = encodeURIComponent("¡Hola! Quiero notificar un pago de mi pedido:\n\n" + info);
     
@@ -158,6 +157,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         setTimeout(() => {
             notifDiv.classList.remove("mostrar");
+            // Se ajustó aquí: el tiempo de espera ahora es entre 15000ms y 20000ms (15 a 20 segundos)
             const proximoIntervalo = Math.floor(Math.random() * (20000 - 15000 + 1)) + 15000;
             setTimeout(generarNotificacionAleatoria, proximoIntervalo);
         }, 5500); 
