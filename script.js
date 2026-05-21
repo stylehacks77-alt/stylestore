@@ -22,6 +22,7 @@ const bancos = {
 /* ==========================================================================
    2. CONTROLADORES DE INTERFAZ Y PASARELA DE NAVEGACIÓN
    ========================================================================== */
+
 function actualizarMetodo() {
     const seleccion = document.getElementById('country-select').value;
     const visualizador = document.getElementById('method-text');
