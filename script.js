@@ -74,7 +74,7 @@ function verificarBloqueoGrupo() {
         <div class="modal-content" style="border: 2px solid #00ffcc; box-shadow: 0 0 30px rgba(0, 255, 204, 0.4); max-width: 320px; padding: 30px; text-align: center;">
             <h2 class="product-title" style="font-size: 24px; margin-bottom: 15px; color:#00ffcc;">⚠️ AVISO IMPORTANTE</h2>
             <p style="color: #eee; font-size: 14px; line-height: 1.6; margin-bottom: 25px;">Para poder seguir navegando en la plataforma y ver los métodos activos, es obligatorio que te unas a nuestro grupo oficial de referencias y soporte de WhatsApp.</p>
-            <a href="https://chat.whatsapp.com/Ibb7twOSAMbLom9zSmhRkS" target="_blank" id="btn-unirse-obligatorio" class="btn-buy" style="background: linear-gradient(90deg, #00ffcc, #0077ff); color: black; text-decoration: none; display: inline-block; width: 85%; font-weight: 900; padding: 15px 0; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,255,204,0.3);">🚀 UNIRSE AL GRUPO AQUÍ</a>
+            <a href="https://chat.whatsapp.com/KKcWPvM8adT8KMkkRbz3ri" target="_blank" id="btn-unirse-obligatorio" class="btn-buy" style="background: linear-gradient(90deg, #00ffcc, #0077ff); color: black; text-decoration: none; display: inline-block; width: 85%; font-weight: 900; padding: 15px 0; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,255,204,0.3);">🚀 UNIRSE AL GRUPO AQUÍ</a>
         </div>
     `;
     document.body.appendChild(alertaDiv);
